@@ -2,15 +2,15 @@
 
 ## Members
 
-Adriano Soares (201904873)
-Angela Cruz (201806781)
-Filipe Campos (201905609)
-Francisco Cerqueira (201905337)
-Nuno Melo (202003324)
+- Adriano Soares (201904873)
+- Angela Cruz (201806781)
+- Filipe Campos (201905609)
+- Francisco Cerqueira (201905337)
+- Nuno Melo (202003324)
 
 # UniCalendar
 
-## Vision Stament
+## Vision Statement
 For the FEUP students who worry they might forget some evaluation activity the "UniCalendar" is a simple to use calendar dashboard that presents the user all Moodle activities deadlines and exam dates while offering the ability to export the schedule to multiple calendar apps through an widely recognised ICS file.
 
 ## Main Features
