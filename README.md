@@ -11,7 +11,7 @@
 # UniCalendar
 
 ## Vision Statement
-For the FEUP students who worry they might forget some evaluation activity the "UniCalendar" is a simple to use calendar dashboard that presents the user all Moodle activities deadlines and exam dates while offering the ability to export the schedule to multiple calendar apps through an widely recognised ICS file.
+For the UP students who worry they might forget some evaluation activity, the UniCalendar is a simple to use calendar dashboard that presents the user all Moodle activities deadlines and exam dates while offering the ability to export the schedule to multiple calendar apps. Our objective is to unite the Moodle and Sigarra exclusive features in one unique place, the activity schedule from Moodle and the exam scheduling from Sigarra, resulting in an overall superior user experience.
 
 ## Main Features
  - Visualize a calendar with all the important dates
