@@ -4,17 +4,15 @@
 
 ![](../images/UseCase.png)
 
-The UP member checks calendar for Moodle activities through dashboards in the main page, having the possibility to filter activities or export the calendar to other apps.
-
 |||
 | --- | --- |
 | *Name* | See calendar |
 | *Actor* |  UP Member | 
-| *Description* | The UP member checks a calendar for Moodle activities through a dashboard on the main page, that'll lead to an exclusive page where the user will have the possibility to filter activities or to export the calendar to other calendar apps. |
+| *Description* | The UP member checks a calendar for Moodle activities through a dashboard on the main page that leads to an exclusive page where the user will have the possibility to filter activities or to export the calendar to other calendar apps. |
 | *Preconditions* | - The UP member must have a UP account;<br>- The UP member must be registered to courses. |
 | *Postconditions* | - (Optional) The UP member gets the calendar as an ICS file. |
 | *Normal flow* | 1. The UP member starts the UNI app;<br> 2. On the main page there's a dashboard showing upcoming moodle activities;<br> 3. The UP member clicks the dashboard to expand it;<br> 4. If wanted, the UP member may filter the calender by course;<br> 5. If wanted, the UP member can export the calendar to other extern app through an ICS file. |
-| *Alternative flows and exceptions* | 1. [No activities] If, in step 2 of the normal flow there aren't any exams or any other activity the dashboard isn't shown / displays nothing ???? |
+| *Alternative flows and exceptions* | 1. [No activities] If, in step 2 of the normal flow there aren't any exams or any other activity the dashboard displays nothing.|
 
 ### User stories
 This section will contain the requirements of the product described as **user stories** organized in a global **[user story map](https://plan.io/blog/user-story-mapping/)** with **user roles** or **themes**. For each theme, or role, you may add a small description. 
