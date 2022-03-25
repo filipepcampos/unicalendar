@@ -12,7 +12,7 @@
 | *Preconditions* | - The UP member must have a UP account.<br>- The UP member must be registered to courses. |
 | *Postconditions* | - [Optional] When exporting, the UP member gets the calendar as an ICS file. |
 | *Normal flow* | 1. The UP member starts the UNI app.<br> 2. The UP member is presented with a dashboard on the main page showing upcoming moodle activities.<br> 3. The UP member clicks the dashboard to expand it.<br> 4. If wanted, the UP member may filter the calendar by course.<br> 5. If wanted, the UP member can export the calendar to other extern app through an ICS file. |
-| *Alternative flows and exceptions* | 1. [No activities] If in step 2 of the normal flow there aren't any exams or any other activity the dashboard displays a simple message stating the case.|
+| *Alternative flows and exceptions* | 1. [No activities] If in step 2 of the normal flow there aren't any exams or any other activity the dashboard displays a simple message stating the case.<br>2. Alternatively, in step 3 the UP member may expand the lateral panel of the app and click the "Moodle's Activities" option.|
 
 ### User stories
 This section will contain the requirements of the product described as **user stories** organized in a global **[user story map](https://plan.io/blog/user-story-mapping/)** with **user roles** or **themes**. For each theme, or role, you may add a small description. 
