@@ -57,6 +57,25 @@ For each user story you should write also the acceptance tests (textually in [Gh
 At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
 
 
+As a UP Member, I want to view a calender with my scheduled exams and Moodle activities.
+  - User interface mockups
+  - Acceptance tests
+  - Value and effort
+
+As a UP Member, I want to be able to filter exams or activities that appear in the calendar, so that I can only view events that are relevant to me.
+
+- Notes
+  - TBD: DIZER QUAIS OPÇÕES PODEM SER FILTRADAS
+- User interface mockups
+  - TBD
+- Acceptance tests
+  - TBD
+- Value and effort
+  - TBD
+
+As a UP Member, I want to export the calendar generated, so that I can save it to my personal calendar on my phone. 
+**Notes**
+
 
 ### Domain model
 
