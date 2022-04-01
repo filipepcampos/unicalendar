@@ -22,36 +22,6 @@
  - As an UP member, I want to be able to export the activities calendar with the current filters applied to an external calendar application, so that I can easily synchronize with my everyday use calendar and manage my time more efficiently. 
  - As an UP member, I want to be able to click on an “Moodle’s Activities” option on the application sidebar, so that I can go to the corresponding page.
 
-**User interface mockups**.
-After the user story text, you should add a draft of the corresponding user interfaces, a simple mockup or draft, if applicable.
-
-**Acceptance tests**.
-For each user story you should write also the acceptance tests (textually in [Gherkin](https://cucumber.io/docs/gherkin/reference/)), i.e., a description of scenarios (situations) that will help to confirm that the system satisfies the requirements addressed by the user story.
-
-**Value and effort**.
-At the end, it is good to add a rough indication of the value of the user story to the customers (e.g. [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) method) and the team should add an estimation of the effort to implement it, for example, using t-shirt sizes (XS, S, M, L, XL).
-
-
-As a UP Member, I want to view a calender with my scheduled exams and Moodle activities.
-  - User interface mockups
-  - Acceptance tests
-  - Value and effort
-
-As a UP Member, I want to be able to filter exams or activities that appear in the calendar, so that I can only view events that are relevant to me.
-
-- Notes
-  - TBD: DIZER QUAIS OPÇÕES PODEM SER FILTRADAS
-- User interface mockups
-  - TBD
-- Acceptance tests
-  - TBD
-- Value and effort
-  - TBD
-
-As a UP Member, I want to export the calendar generated, so that I can save it to my personal calendar on my phone. 
-**Notes**
-
-
 ### Domain model
 
  <p align="center" justify="center">
