@@ -19,7 +19,7 @@
  - [As an UP member, I want to see a Moodle activity calendar page, so that I can keep up with their deadlines and have more functionalities.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/2)
  - [As an UP member, I want to be able to filter the calendar for ongoing and future activities by their course, so that I can better keep track of the deadlines (e.g when there are too many activities).](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/3)
  - [As an UP member, I want to be able to click on the homescreen calendar dashboard, so that I can go to the corresponding page.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/4)
- - [As an UP member, I want to be able to export the activities calendar with the current filters applied to an external calendar application, so that I can easily synchronize with my everyday use calendar and manage my time more efficiently.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/5
+ - [As an UP member, I want to be able to export the activities calendar with the current filters applied to an external calendar application, so that I can easily synchronize with my everyday use calendar and manage my time more efficiently.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/5)
  - [As an UP member, I want to be able to click on an “Moodle’s Activities” option on the application sidebar, so that I can go to the corresponding page.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/6)
 
 ### Domain model
