@@ -63,5 +63,5 @@ Also provide a short textual description of each class.
 
 Example:
  <p align="center" justify="center">
-  <img src="https://github.com/LEIC-ES-2021-22/templates/blob/main/images/DomainModel.png"/>
+  <img src="https://github.com/LEIC-ES-2021-22/3LEIC03T3/blob/main/images/DomainModeling.png"/>
 </p>
