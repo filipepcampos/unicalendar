@@ -15,16 +15,12 @@
 | *Alternative flows and exceptions* | 1. [No activities] If in step 2 of the normal flow there aren't any exams or any other activity the dashboard displays a simple message stating the case.<br>2. Alternatively, in step 3 the UP member may expand the lateral panel of the app and click the "Moodle's Activities" option.|
 
 ### User stories
-This section will contain the requirements of the product described as **user stories** organized in a global **[user story map](https://plan.io/blog/user-story-mapping/)** with **user roles** or **themes**. For each theme, or role, you may add a small description. 
-
-A user story is a description of desired functionality told from the perspective of the user or customer. A starting template for the description of a user story is 
-
-*As a < user role >, I want < goal > so that < reason >.*
-
-User stories should be described as [Issues](https://github.com/LEIC-ES-2021-22/templates/issues) in GitHub. You should give a very short name to the issue and, in the "comments" field, add the user story itself (see above), the image(s) of the user interface mockup(s) (see below) and the acceptance test scenarios (see below). 
-
-**INVEST in good user stories**. 
-You may add more details after, but the shorter and complete, the better. In order to decide if the user story is good, please follow the [INVEST guidelines](https://xp123.com/articles/invest-in-good-stories-and-smart-tasks/).
+ - As an UP member, I want to see a Moodle activity calendar dashboard on the homescreen, so that I can keep up with their deadlines.
+ - As an UP member, I want to see a Moodle activity calendar page, so that I can keep up with their deadlines and have more functionalities.
+ - As an UP member, I want to be able to filter the calendar for ongoing and future activities by their course, so that I can better keep track of the deadlines (e.g when there are too many activities). 
+ - As an UP member, I want to be able to click on the homescreen calendar dashboard, so that I can go to the corresponding page.
+ - As an UP member, I want to be able to export the activities calendar with the current filters applied to an external calendar application, so that I can easily synchronize with my everyday use calendar and manage my time more efficiently. 
+ - As an UP member, I want to be able to click on an “Moodle’s Activities” option on the application sidebar, so that I can go to the corresponding page.
 
 **User interface mockups**.
 After the user story text, you should add a draft of the corresponding user interfaces, a simple mockup or draft, if applicable.
