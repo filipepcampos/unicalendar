@@ -5,15 +5,15 @@ Welcome to the documentation pages of the **UniCalendar**!
 You can find here detailed about the product (or mini-app or module), from a high-level vision to low-level implementation decisions, a kind of Software Development Report, organized by discipline (as of RUP): 
 
 * Business modeling 
-  * [Product Vision](docs/product_vision.md)
+  * [Product Vision](docs/ProductVision.md)
   * [Elevator Pitch]
 * [Requirements](docs/requirements.md)
   * [Use Case Model](docs/requirements.md#use-case-model)
   * [User stories](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues)
   * [Domain model](docs/requirements.md#domain-model)
-* [Architecture and Design]
-  * [Logical architecture]
-  * [Physical architecture]
+* [Architecture and Design](docs/ArchitectureAndDesign.md)
+  * [Logical architecture](docs/ArchitectureAndDesign.md#logical-architecture)
+  * [Physical architecture](docs/ArchitectureAndDesign.md#physical-architecture)
   * [Prototype]
 * [Implementation]
 * [Test]
