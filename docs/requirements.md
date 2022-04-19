@@ -2,6 +2,7 @@
 
 ## Use case model
 
+> TODO: Update
 ![](../images/UseCase.png)
 
 |||
@@ -13,6 +14,26 @@
 | *Postconditions* | - [Optional] When exporting, the UP member gets the calendar as an ICS file. |
 | *Normal flow* | 1. The UP member starts the UNI app.<br> 2. The UP member is presented with a dashboard on the main page showing upcoming moodle activities.<br> 3. The UP member clicks the dashboard to expand it.<br> 4. If wanted, the UP member may filter the calendar by course.<br> 5. If wanted, the UP member can export the calendar to other extern app through an ICS file. |
 | *Alternative flows and exceptions* | 1. [No activities] If in step 2 of the normal flow there aren't any exams or any other activity the dashboard displays a simple message stating the case.<br>2. Alternatively, in step 3 the UP member may expand the lateral panel of the app and click the "Moodle's Activities" option.|
+
+|||
+|-|-|
+| *Name* | View Dashboard in Home Page |
+| *Actor* | UP Member |
+| *Description* | TODO |
+| *Preconditions* | TODO |
+| *Postconditions* | TODO |
+| *Normal flow* | TODO |
+| *Alternative flows and exceptions* | TODO |
+
+|||
+|-|-|
+| *Name* | Filter Activities by Course |
+| *Actor* | UP Member |
+| *Description* | The UP member |
+| *Preconditions* | TODO |
+| *Postconditions* | TODO |
+| *Normal flow* | TODO |
+| *Alternative flows and exceptions* | TODO |
 
 ### User stories
  - [As an UP member, I want to see a Moodle activity calendar dashboard on the homescreen, so that I can keep up with their deadlines.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/1)
@@ -27,3 +48,4 @@
  <p align="center" justify="center">
   <img src="https://github.com/LEIC-ES-2021-22/3LEIC03T3/blob/main/images/DomainModeling.png"/>
 </p>
+pt
