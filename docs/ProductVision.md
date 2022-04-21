@@ -2,7 +2,8 @@
 
 ## Vision Statement
 
-For the UP students who worry they might forget some evaluation activity, the UniCalendar is a simple to use calendar that presents the user activities deadlines. This product will allow students to collaborate by maintaining a document updated with their deadlines.
+For the UP students who worry they might forget some evaluation activity, the UniCalendar is a simple to use calendar that presents the user activities deadlines. 
+Since we know that many teachers don't use the moodle's activities in a consistent way we have decided to create a shared document between students where they could add the activities/dates that they found where important for their course. Therefore this product will allow students to collaborate by maintaining a document updated with their deadlines.
 
 > TODO
 
