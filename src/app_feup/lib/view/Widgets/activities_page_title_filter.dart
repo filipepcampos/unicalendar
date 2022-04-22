@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uni/view/Widgets/exam_filter_menu.dart';
 
-class MoodlePageTitleFilter extends StatelessWidget {
+class ActivitiesPageTitleFilter extends StatelessWidget {
   final String name;
 
-  const MoodlePageTitleFilter({Key key, @required this.name}) : super(key: key);
+  const ActivitiesPageTitleFilter({Key key, @required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

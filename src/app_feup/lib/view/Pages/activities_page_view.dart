@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
-import 'package:uni/view/Widgets/moodle_page_title_filter.dart';
+import 'package:uni/view/Widgets/activities_page_title_filter.dart';
 
-class MoodlePageView extends StatefulWidget {
+class ActivitiesPageView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => MoodlePageViewState();
+  State<StatefulWidget> createState() => ActivitiesPageViewState();
 }
 
-class MoodlePageViewState extends SecondaryPageViewState {
+class ActivitiesPageViewState extends SecondaryPageViewState {
   final double borderRadius = 10.0;
 
   @override
@@ -15,8 +15,8 @@ class MoodlePageViewState extends SecondaryPageViewState {
     final MediaQueryData queryData = MediaQuery.of(context);
     return ListView(
       children: <Widget>[
-        MoodlePageTitleFilter(
-            name: 'Atividades Moodle',
+        ActivitiesPageTitleFilter(
+            name: 'Atividades',
         ),
         Center(
           child: Padding(
