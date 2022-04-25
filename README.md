@@ -7,10 +7,10 @@ You can find here detailed about the product (or mini-app or module), from a hig
 * Business modeling 
   * [Product Vision](docs/ProductVision.md)
   * [Elevator Pitch]
-* [Requirements](docs/requirements.md)
-  * [Use Case Model](docs/requirements.md#use-case-model)
+* [Requirements](docs/Requirements.md)
+  * [Use Case Model](docs/Requirements.md#use-case-model)
   * [User stories](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues)
-  * [Domain model](docs/requirements.md#domain-model)
+  * [Domain model](docs/Requirements.md#domain-model)
 * [Architecture and Design](docs/ArchitectureAndDesign.md)
   * [Logical architecture](docs/ArchitectureAndDesign.md#logical-architecture)
   * [Physical architecture](docs/ArchitectureAndDesign.md#physical-architecture)
