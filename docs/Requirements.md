@@ -46,5 +46,5 @@
 ### Domain model
 
  <p align="center" justify="center">
-  <img src="https://github.com/LEIC-ES-2021-22/3LEIC03T3/blob/main/images/DomainModeling.png"/>
+  <img src="../images/DomainModeling.png"/>
 </p>
