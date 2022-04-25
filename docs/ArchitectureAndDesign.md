@@ -11,7 +11,7 @@ The purpose of this section is to describe our application’s architecture. To 
   - Page UI - Display page calendar.
 - Calendar Logic - Command the display of the Model given a set of parameters (e.g. filters, ongoing, past activities, etc…).
 - Data Parser - Parse raw data into concrete Dart Models.
-- Networking - Obtain data from the UP member’s Moodle page.
+- Networking - Obtain data from the backend google sheet.
 
 # Physical Architecture
 
@@ -19,12 +19,12 @@ The purpose of this section is to describe our application’s architecture. To 
 
 - UPMember Smartphone - The UP member’s smartphone where the Uni4All application will be running on.
   - Uni4All (Flutter) - Extended mobile application developed by NIAEFEUP (with Flutter) with our feature.
-- Moodle Server
-  - Web Server - Required to fetch the necessary data for our feature.
+- Google Sheet Server
+  - Web Server - Required to fetch the necessary data for our feature, accessed using sheet's public API.
 
 # Vertical Prototype
 
-For the vertical prototype we implemented a new view with boilerplate content that will become the Moodle Activities pages ([User story #2](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/2)), this page is accessible through the application's sidebar.
+For the vertical prototype we implemented a new view with boilerplate content that will become the Activities pages ([User story #2](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/2)), this page is accessible through the application's sidebar.
 
 The prototype is running on **Flutter 2.0.1**, the version used by the official [UNI app](https://github.com/NIAEFEUP/project-schrodinger).
 
