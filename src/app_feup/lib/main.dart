@@ -92,7 +92,7 @@ class MyAppState extends State<MyApp> {
               case '/' + Constants.navExams:
                 return PageTransition.makePageTransition(
                     page: ExamsPageView(), settings: settings);
-              case '/' + Constants.navMoodle:
+              case '/' + Constants.navActivities:
                 return PageTransition.makePageTransition(
                     page: MoodlePageView(), settings: settings);
               case '/' + Constants.navStops:

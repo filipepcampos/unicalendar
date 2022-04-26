@@ -88,9 +88,7 @@ class ActivityCard extends GenericCard {
       DateRectangle(date: activity.getStart().weekday + ', ' + activity.getStart().day + ' de ' + activity.getStart().month),
       Container(
         child: RowContainer(
-          color: isHighlighted(activity)
-              ? Theme.of(context).backgroundColor
-              : Theme.of(context).hintColor,
+          color: Theme.of(context).backgroundColor,
           child: ScheduleRow(
             subject: activity.course,
             begin: activity.start,
