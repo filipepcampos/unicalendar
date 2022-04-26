@@ -2,22 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:uni/view/Widgets/activities_page_title_filter.dart';
 
-class ActivitiesPageView extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => ActivitiesPageViewState();
-}
+/// Manages the 'schedule' sections of the app
+class ActivitiesPageView extends StatelessWidget {
+  ActivitiesPageView(
+      {Key key,
+      @required this.tabController,
+      @required this.activitiesOptions,
+      this.scrollViewController});
 
-class ActivitiesPageViewState extends SecondaryPageViewState {
-  final double borderRadius = 10.0;
+  final List<String> activitiesOptions;
+  final TabController tabController;
+  final ScrollController scrollViewController;
 
   @override
-  Widget getBody(BuildContext context) {
+  Widget build(BuildContext context) {
     final MediaQueryData queryData = MediaQuery.of(context);
-    return ListView(
-      children: <Widget>[
-        ActivitiesPageTitleFilter(
+
+    return Column(children: <Widget>[
+      ListView(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        children: <Widget>[
+          ActivitiesPageTitleFilter(
             name: 'Atividades',
-        ),
+          ),
+          TabBar(
+            controller: tabController,
+            isScrollable: true,
+            tabs: createTabs(queryData, context),
+          ),
+        ],
+      ),
+      Expanded(
+          child: TabBarView(
+        controller: tabController,
+        children: <Widget>[
         Center(
           child: Padding(
             padding: EdgeInsets.only(
@@ -45,6 +64,21 @@ class ActivitiesPageViewState extends SecondaryPageViewState {
           )
         )
       ],
-    );
+      ))
+    ]);
+  }
+
+  /// Returns a list of widgets empty with tabs for each option.
+  List<Widget> createTabs(queryData, BuildContext context) {
+    final List<Widget> tabs = <Widget>[];
+    for (var i = 0; i < activitiesOptions.length; i++) {
+      print("CreateTab");
+      tabs.add(Container(
+        color: Theme.of(context).backgroundColor,
+        width: queryData.size.width * 1 / activitiesOptions.length,
+        child: Tab(key: Key('activities-page-tab-$i'), text: activitiesOptions[i]),
+      ));
+    }
+    return tabs;
   }
 }
