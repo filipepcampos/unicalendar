@@ -35,5 +35,5 @@ class Activity {
 
   bool isFuture(){
     return DateTime.now().isBefore(this.start);
-  } 
+  }
 }
