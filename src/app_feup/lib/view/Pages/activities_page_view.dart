@@ -34,36 +34,12 @@ class ActivitiesPageView extends StatelessWidget {
         ],
       ),
       Expanded(
-          child: TabBarView(
+        child: TabBarView(
         controller: tabController,
         children: <Widget>[
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: queryData.size.width / 12,
-              right: queryData.size.width / 12,
-              top: queryData.size.width / 12,
-              bottom: queryData.size.width / 12
-            ),
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.black,
-                ),
-                children: <TextSpan>[
-                  TextSpan(text: 'Adriano Soares\n'),
-                  TextSpan(text: 'Ângela Cruz\n'),
-                  TextSpan(text: 'Filipe Campos\n'),
-                  TextSpan(text: 'Francisco Cerqueira\n'),
-                  TextSpan(text: 'Nuno Castro\n')
-                ]
-              ),
-            )
-          )
-        )
-      ],
+          createActivitySection(queryData),
+          createActivitySection(queryData)
+        ],
       ))
     ]);
   }
@@ -72,7 +48,6 @@ class ActivitiesPageView extends StatelessWidget {
   List<Widget> createTabs(queryData, BuildContext context) {
     final List<Widget> tabs = <Widget>[];
     for (var i = 0; i < activitiesOptions.length; i++) {
-      print("CreateTab");
       tabs.add(Container(
         color: Theme.of(context).backgroundColor,
         width: queryData.size.width * 1 / activitiesOptions.length,
@@ -80,5 +55,34 @@ class ActivitiesPageView extends StatelessWidget {
       ));
     }
     return tabs;
+  }
+
+  Widget createActivitySection(queryData) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: queryData.size.width / 12,
+          right: queryData.size.width / 12,
+          top: queryData.size.width / 12,
+          bottom: queryData.size.width / 12
+        ),
+        child: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: 'Adriano Soares\n'),
+              TextSpan(text: 'Ângela Cruz\n'),
+              TextSpan(text: 'Filipe Campos\n'),
+              TextSpan(text: 'Francisco Cerqueira\n'),
+              TextSpan(text: 'Nuno Castro\n')
+            ]
+          ),
+        )
+      )
+    );
   }
 }
