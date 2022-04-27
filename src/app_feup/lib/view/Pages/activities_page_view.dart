@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:uni/model/app_state.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:uni/view/Widgets/activities_page_title_filter.dart';
+import 'package:uni/view/Widgets/request_dependent_widget_builder.dart';
 
-/// Manages the 'schedule' sections of the app
+/// Manages the 'activities' sections of the app
 class ActivitiesPageView extends StatelessWidget {
   ActivitiesPageView(
       {Key key,
       @required this.tabController,
-      @required this.activitiesOptions,
+      @required this.activitiesGroups,
+      @required this.activitiesStatus,
+      @required this.aggActivities,
       this.scrollViewController});
 
-  final List<String> activitiesOptions;
+  final List<String> activitiesGroups;
+  final RequestStatus activitiesStatus;
+  final List<List<String>> aggActivities; // TODO: Change String to Activity
   final TabController tabController;
   final ScrollController scrollViewController;
 
@@ -34,55 +40,69 @@ class ActivitiesPageView extends StatelessWidget {
         ],
       ),
       Expanded(
-        child: TabBarView(
-        controller: tabController,
-        children: <Widget>[
-          createActivitySection(queryData),
-          createActivitySection(queryData)
-        ],
-      ))
+        child: 
+          TabBarView(
+            controller: tabController,
+            children: createActivitiesSubsections(context)
+          )
+        )
     ]);
   }
 
   /// Returns a list of widgets empty with tabs for each option.
   List<Widget> createTabs(queryData, BuildContext context) {
     final List<Widget> tabs = <Widget>[];
-    for (var i = 0; i < activitiesOptions.length; i++) {
+    for (var i = 0; i < activitiesGroups.length; i++) {
       tabs.add(Container(
         color: Theme.of(context).backgroundColor,
-        width: queryData.size.width * 1 / activitiesOptions.length,
-        child: Tab(key: Key('activities-page-tab-$i'), text: activitiesOptions[i]),
+        width: queryData.size.width / activitiesGroups.length,
+        child: Tab(key: Key('activities-page-tab-$i'), text: activitiesGroups[i]),
       ));
     }
     return tabs;
   }
 
-  Widget createActivitySection(queryData) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: queryData.size.width / 12,
-          right: queryData.size.width / 12,
-          top: queryData.size.width / 12,
-          bottom: queryData.size.width / 12
-        ),
-        child: RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.black,
-            ),
-            children: <TextSpan>[
-              TextSpan(text: 'Adriano Soares\n'),
-              TextSpan(text: 'Ângela Cruz\n'),
-              TextSpan(text: 'Filipe Campos\n'),
-              TextSpan(text: 'Francisco Cerqueira\n'),
-              TextSpan(text: 'Nuno Castro\n')
-            ]
-          ),
-        )
-      )
+  // Create both activities subsections (Ongoing and future)
+  List<Widget> createActivitiesSubsections(queryData){
+    final List<Widget> subSections = <Widget>[];
+    for(int i = 0; i < aggActivities.length; ++i){
+      subSections.add(createActivitySubsection(queryData, i));
+    }
+    return subSections;
+  }
+
+  // Returns an subsection widget with all the corresponding (ongoing/future) activities widgets inside
+  Widget createActivitySubsection(BuildContext context, int groupId) {
+    return RequestDependentWidgetBuilder(
+      context: context,
+      status: activitiesStatus,
+      contentGenerator: activityGroupColumnBuilder(groupId),
+      content: aggActivities[groupId],
+      contentChecker: aggActivities[groupId].isNotEmpty,
+      onNullContent:
+          Center(child: Text('Não possui atividades ' + activitiesGroups[groupId].toLowerCase() + '.')),
+      index: groupId,
     );
+  }
+
+  Widget Function(dynamic groupContent, BuildContext context) activityGroupColumnBuilder(
+      int groupId) {
+    Widget createGroupColumn(groupContent, BuildContext context) {
+      return Container(
+          key: Key('activities-page-group-column-$groupId'),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: createActivitiesRows(groupContent, context),
+          ));
+    }
+    return createGroupColumn;
+  }
+
+  List<Widget> createActivitiesRows(activities, BuildContext context){
+    final List<Widget> activitiesContent = <Widget>[];
+    for(int i = 0; i < activities.length; ++i){
+      activitiesContent.add(Center(child: Text(activities[i])));
+    }
+    return activitiesContent;
   }
 }

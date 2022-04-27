@@ -18,16 +18,31 @@ class _ActivitiesPageState extends SecondaryPageViewState
   TabController tabController;
   ScrollController scrollViewController;
 
-  final List<String> activitiesOptions = [
+  final List<String> activitiesGroups = [
     'A Decorrer',
     'Atividades futuras'
   ];
 
+  List<List<String>> _groupActivitiesByStatus(List<String> activities) { // TODO: Change String to Activity
+    final aggActivities = <List<String>>[];
+    final ongoingActivities = <String>[];
+    final futureActivities = <String>[];
+
+    for (int i = 0; i < activities.length; ++i){
+      // if(activities[i].startDate < currentDate && activities[i].endDate > currentDate)
+      ongoingActivities.add(activities[i]);
+      // if(activities[i].startDate > currentDate)
+      //futureActivities.add(activities[i]);
+    }
+    aggActivities.add(ongoingActivities);
+    aggActivities.add(futureActivities);
+    return aggActivities;
+  }
+
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: activitiesOptions.length);
-    tabController.animateTo((tabController.index)); // TODO: Is this necessary
+    tabController = TabController(vsync: this, length: activitiesGroups.length);
   }
 
   @override
@@ -38,17 +53,19 @@ class _ActivitiesPageState extends SecondaryPageViewState
 
   @override
   Widget getBody(BuildContext context) {
-    return StoreConnector<AppState, Tuple2<List<Lecture>, RequestStatus>>(
-      converter: (store) => Tuple2(store.state.content['schedule'],
-          store.state.content['scheduleStatus']),
-      builder: (context, lectureData) {
-        final lectures = lectureData.item1;
-        final scheduleStatus = lectureData.item2;
+    return StoreConnector<AppState, Tuple2<List<String>, RequestStatus>>( // TODO: Change String to Activity
+      converter: (store) => Tuple2(["Activity 1", "Activity 2", "Activity 3"], // TODO: Change to 'store.state.content['activities']' when ready
+          store.state.content['activitiesStatus']),
+      builder: (context, activitiesData) {
+        List<String> activities = activitiesData.item1;
+        RequestStatus status = activitiesData.item2;
         return ActivitiesPageView(
             tabController: tabController,
             scrollViewController: scrollViewController,
-            activitiesOptions: activitiesOptions
-            );
+            activitiesGroups: activitiesGroups,
+            activitiesStatus: status,
+            aggActivities: _groupActivitiesByStatus(activities),
+          );
       },
     );
   }
