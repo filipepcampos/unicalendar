@@ -80,7 +80,7 @@ class ActivitiesPageView extends StatelessWidget {
       content: aggActivities[groupId],
       contentChecker: aggActivities[groupId].isNotEmpty,
       onNullContent:
-          Center(child: Text('Não possui atividades ' + activitiesGroups[groupId].toLowerCase() + '.')),
+          Center(child: Text('Não possui atividades.')),
       index: groupId,
     );
   }
