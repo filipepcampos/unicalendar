@@ -5,6 +5,7 @@ import 'package:glob/glob.dart';
 import 'steps/tap_button_n_times_step.dart';
 import 'steps/fill_password_input_step.dart';
 import 'steps/fill_usercode_input_step.dart';
+import 'steps/activity_subsection_is_open_step.dart';
 import 'authentication_data.dart';
 
 Future<void> main() {
@@ -18,7 +19,8 @@ Future<void> main() {
     ..stepDefinitions = [
       TapButtonNTimesStep(),
       FillPasswordStep(password),
-      FillUsercodeStep(usercode)
+      FillUsercodeStep(usercode),
+      ActivitySubsectionIsOpenStep()
     ]
     ..customStepParameterDefinitions = []
     ..restartAppBetweenScenarios = true

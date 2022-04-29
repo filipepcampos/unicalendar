@@ -79,6 +79,7 @@ class ActivitiesPageView extends StatelessWidget {
       contentGenerator: activityGroupColumnBuilder(groupId),
       content: aggActivities[groupId],
       contentChecker: aggActivities[groupId].isNotEmpty,
+      key: Key('activities-page-subsection-$groupId'),
       onNullContent:
           Center(child: Text('Não possui atividades.')),
       index: groupId,
