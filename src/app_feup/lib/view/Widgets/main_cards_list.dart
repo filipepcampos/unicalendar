@@ -6,10 +6,10 @@ import 'package:uni/model/home_page_model.dart';
 import 'package:uni/redux/actions.dart';
 import 'package:uni/utils/constants.dart' as Constants;
 import 'package:uni/view/Widgets/account_info_card.dart';
+import 'package:uni/view/Widgets/activity_card.dart';
 import 'package:uni/view/Widgets/back_button_exit_wrapper.dart';
 import 'package:uni/view/Widgets/bus_stop_card.dart';
 import 'package:uni/view/Widgets/exam_card.dart';
-import 'package:uni/view/Widgets/activity_card.dart';
 import 'package:uni/view/Widgets/print_info_card.dart';
 import 'package:uni/view/Widgets/schedule_card.dart';
 
