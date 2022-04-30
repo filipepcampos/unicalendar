@@ -1,16 +1,13 @@
 import 'package:uni/model/entities/activity.dart';
 import 'package:uni/model/app_state.dart';
-import 'package:uni/model/entities/activity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tuple/tuple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/utils/constants.dart' as Constants;
-import 'package:uni/view/Widgets/date_rectangle.dart';
+import 'package:uni/view/Widgets/activity_row.dart';
+import 'package:uni/view/Widgets/activity_secondary_row.dart';
 import 'package:uni/view/Widgets/request_dependent_widget_builder.dart';
-import 'package:uni/view/Widgets/row_container.dart';
-import 'package:uni/view/Widgets/schedule_event_rectangle.dart';
-import 'package:uni/view/Widgets/schedule_row.dart';
 
 import 'generic_card.dart';
 
@@ -36,7 +33,7 @@ class ActivityCard extends GenericCard {
   Widget buildCardContent(BuildContext context) {
     return StoreConnector<AppState, Tuple2<List<Activity>, RequestStatus>>(
       converter: (store) {
-        return Tuple2(store.state.content['activities'],
+        return Tuple2(store.state.content['activities'],  // TODO: Filter ongoing activities
                       store.state.content['activitiesStatus']);
       },
       builder: (context, activitiesInfo) => RequestDependentWidgetBuilder(
@@ -67,7 +64,7 @@ class ActivityCard extends GenericCard {
   List<Widget> getActivitiesRows(context, activities) {
     final List<Widget> rows = <Widget>[];
     for (int i = 0; i < 1 && i < activities.length; i++) {
-      rows.add(this.createRowFromActivity(context, activities[i]));
+      rows.add(ActivityRow(activity: activities[i]));
     }
     if (activities.length > 1) {
       rows.add(Container(
@@ -78,24 +75,9 @@ class ActivityCard extends GenericCard {
                     width: 1.5, color: Theme.of(context).dividerColor))),
       ));
     }
+    for (int i = 1; i < 4 && i < activities.length; i++) {
+      rows.add(SecondaryActivityRow(activity: activities[i]));
+    }
     return rows;
-  }
-
-  /// Creates a row with the closest activity (which appears separated from the
-  /// others in the card).
-  Widget createRowFromActivity(context, activity) {
-    return Column(children: [
-      DateRectangle(date: activity.getStart().weekday + ', ' + activity.getStart().day + ' de ' + activity.getStart().month),
-      Container(
-        child: RowContainer(
-          color: Theme.of(context).backgroundColor,
-          child: ScheduleRow(
-            subject: activity.course,
-            begin: activity.start,
-            end: activity.end,
-          ),
-        ),
-      ),
-    ]);
   }
 }
