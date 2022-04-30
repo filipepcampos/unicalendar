@@ -1,5 +1,4 @@
 // enum should be placed somewhere else?
-import 'package:uni/model/entities/activity.dart';
 import 'package:uni/model/entities/bus_stop.dart';
 import 'package:uni/model/entities/session.dart';
 import 'package:uni/model/entities/trip.dart';
@@ -8,6 +7,7 @@ import 'package:uni/utils/constants.dart' as Constants;
 import 'entities/exam.dart';
 import 'entities/lecture.dart';
 import 'entities/restaurant.dart';
+import 'entities/activity.dart';
 
 enum RequestStatus { none, busy, failed, successful }
 
@@ -25,7 +25,7 @@ class AppState {
       'scheduleStatus': RequestStatus.none,
       'loginStatus': RequestStatus.none,
       'examsStatus': RequestStatus.none,
-      'activityStatus': RequestStatus.none,
+      'activitiesStatus': RequestStatus.none,
       'selected_page': Constants.navPersonalArea,
       'session': Session(authenticated: false),
       'configuredBusStops': Map<String, BusStopData>(),
