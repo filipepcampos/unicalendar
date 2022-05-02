@@ -16,3 +16,6 @@ const faculties = ['faup', 'fbaup', 'fcup', 'fcnaup', 'fadeup',
 const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 
                 'Maio', 'Junho', 'Julho', 'Agosto', 
                 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+const weekDays = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta',
+                  'Sábado', 'Domingo'];
