@@ -1,5 +1,6 @@
 //Stores information about an activity
 import 'package:intl/intl.dart';
+import 'package:uni/utils/constants.dart' as Constants;
 
 class Activity {
   String _course;
@@ -44,6 +45,6 @@ class Activity {
   }
 
   String getDayMonth() {
-    return '${this._end.day}/${DateFormat.MMMM().format(this._end)}';
+    return '${this._end.day}/${Constants.months[this._end.month - 1]}';
   }
 }

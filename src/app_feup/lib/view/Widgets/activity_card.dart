@@ -32,7 +32,7 @@ class ActivityCard extends GenericCard {
   Widget buildCardContent(BuildContext context) {
     return StoreConnector<AppState, Tuple2<List<Activity>, RequestStatus>>(
       converter: (store) {
-        return Tuple2(store.state.content['activities'],  // TODO: Filter ongoing activities
+        return Tuple2(store.state.content['activities'],
                       store.state.content['activitiesStatus']);
       },
       builder: (context, activitiesInfo) => RequestDependentWidgetBuilder(
