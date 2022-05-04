@@ -27,7 +27,7 @@ class NavigationDrawerState extends State<NavigationDrawer> {
       Constants.navPersonalArea: _onSelectPage,
       Constants.navSchedule: _onSelectPage,
       Constants.navExams: _onSelectPage,
-      Constants.navMoodle: _onSelectPage,
+      Constants.navActivities: _onSelectPage,
       Constants.navStops: _onSelectPage,
       Constants.navAbout: _onSelectPage,
       Constants.navBugReport: _onSelectPage,
@@ -63,6 +63,7 @@ class NavigationDrawerState extends State<NavigationDrawer> {
                 left: BorderSide(
                     color: Theme.of(context).accentColor, width: 3.0)),
             color: Theme.of(context).dividerColor,
+
           )
         : null;
   }
@@ -95,9 +96,11 @@ class NavigationDrawerState extends State<NavigationDrawer> {
                 style: TextStyle(
                     fontSize: 18.0,
                     color: Theme.of(context).accentColor,
-                    fontWeight: FontWeight.normal)),
+                    fontWeight: FontWeight.normal))
           ),
+
           dense: true,
+          key: Key('key_$d'),
           contentPadding: EdgeInsets.all(0.0),
           selected: d == getCurrentRoute(),
           onTap: () => drawerItems[d](d),
@@ -113,6 +116,7 @@ class NavigationDrawerState extends State<NavigationDrawer> {
     }
 
     return Drawer(
+        key: const Key('menu'),
         child: Column(
       children: <Widget>[
         Expanded(
@@ -122,8 +126,9 @@ class NavigationDrawerState extends State<NavigationDrawer> {
             children: drawerOptions,
           ),
         )),
-        Row(children: <Widget>[Expanded(child: createLogoutBtn())])
+        Row(children: <Widget>[Expanded(child: createLogoutBtn())], )
       ],
     ));
+
   }
 }

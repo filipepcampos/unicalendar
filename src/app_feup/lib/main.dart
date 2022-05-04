@@ -17,7 +17,6 @@ import 'package:uni/view/Pages/bus_stop_next_arrivals_page.dart';
 import 'package:uni/view/Pages/exams_page_view.dart';
 import 'package:uni/view/Pages/home_page_view.dart';
 import 'package:uni/view/Pages/logout_route.dart';
-import 'package:uni/view/Pages/moodle_page_view.dart';
 import 'package:uni/view/Pages/splash_page_view.dart';
 import 'package:uni/view/Widgets/page_transition.dart';
 import 'package:uni/view/navigation_service.dart';
@@ -25,6 +24,7 @@ import 'package:uni/view/theme.dart';
 
 import 'controller/on_start_up.dart';
 import 'model/schedule_page_model.dart';
+import 'model/activities_page_model.dart';
 
 /// Stores the state of the app
 final Store<AppState> state = Store<AppState>(appReducers,
@@ -92,9 +92,9 @@ class MyAppState extends State<MyApp> {
               case '/' + Constants.navExams:
                 return PageTransition.makePageTransition(
                     page: ExamsPageView(), settings: settings);
-              case '/' + Constants.navMoodle:
+              case '/' + Constants.navActivities:
                 return PageTransition.makePageTransition(
-                    page: MoodlePageView(), settings: settings);
+                    page: ActivitiesPage(), settings: settings);
               case '/' + Constants.navStops:
                 return PageTransition.makePageTransition(
                     page: BusStopNextArrivalsPage(), settings: settings);
