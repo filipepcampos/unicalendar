@@ -20,7 +20,7 @@ class AppState {
       'schedule': <Lecture>[],
       'exams': <Exam>[],
       'restaurants': <Restaurant>[],
-      'activities': <Activity>[Activity("ES", "Kahoot #3", DateTime(2022, 4, 1), DateTime(2022, 5, 10, 10, 50)), Activity("TCOMP", "Checkpoint 54", DateTime(2024, 4, 2), DateTime(2025, 5, 3))],
+      'activities': <Activity>[],
       'filteredExam': Map<String, bool>(),
       'scheduleStatus': RequestStatus.none,
       'loginStatus': RequestStatus.none,

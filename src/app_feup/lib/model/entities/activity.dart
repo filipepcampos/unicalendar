@@ -50,4 +50,13 @@ class Activity {
   String getWeekDayMonth() {
     return '${Constants.weekDays[this._end.weekday]}, ${this._end.day} de ${Constants.months[this._end.month - 1]}';
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'course': this._course,
+      'description': this._description,
+      'start': this._start,
+      'end': this._end
+    };
+  }
 }
