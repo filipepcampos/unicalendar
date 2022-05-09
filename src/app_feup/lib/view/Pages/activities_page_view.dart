@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:uni/model/app_state.dart';
-import 'package:uni/view/Pages/secondary_page_view.dart';
+import 'package:uni/model/entities/activity.dart';
 import 'package:uni/view/Widgets/activities_page_title_filter.dart';
 import 'package:uni/view/Widgets/request_dependent_widget_builder.dart';
+import 'package:uni/view/Widgets/activity_primary_row.dart';
+import 'package:uni/view/Widgets/activity_secondary_row.dart';
 
 /// Manages the 'activities' sections of the app
 class ActivitiesPageView extends StatelessWidget {
@@ -16,7 +18,7 @@ class ActivitiesPageView extends StatelessWidget {
 
   final List<String> activitiesGroups;
   final RequestStatus activitiesStatus;
-  final List<List<String>> aggActivities; // TODO: Change String to Activity
+  final List<List<Activity>> aggActivities;
   final TabController tabController;
   final ScrollController scrollViewController;
 
@@ -25,28 +27,22 @@ class ActivitiesPageView extends StatelessWidget {
     final MediaQueryData queryData = MediaQuery.of(context);
 
     return Column(children: <Widget>[
-      ListView(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        children: <Widget>[
-          ActivitiesPageTitleFilter(
-            name: 'Atividades',
-          ),
-          TabBar(
-            controller: tabController,
-            isScrollable: true,
-            tabs: createTabs(queryData, context),
-          ),
-        ],
+      ActivitiesPageTitleFilter(
+        name: 'Atividades',
       ),
+      TabBar(
+        controller: tabController,
+        isScrollable: true,
+        tabs: createTabs(queryData, context),
+      ),     
       Expanded(
         child: 
           TabBarView(
             controller: tabController,
             children: createActivitiesSubsections(context)
           )
-        )
-    ]);
+        )],
+    );
   }
 
   /// Returns a list of widgets empty with tabs for each option.
@@ -91,18 +87,24 @@ class ActivitiesPageView extends StatelessWidget {
     Widget createGroupColumn(groupContent, BuildContext context) {
       return Container(
           key: Key('activities-page-group-column-$groupId'),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: createActivitiesRows(groupContent, context),
-          ));
+          padding: EdgeInsets.all(8),
+          child: ListView(
+            children: this.createActivitiesRows(groupContent, context),
+                ),
+        );
     }
     return createGroupColumn;
   }
 
   List<Widget> createActivitiesRows(activities, BuildContext context){
     final List<Widget> activitiesContent = <Widget>[];
-    for(int i = 0; i < activities.length; ++i){
-      activitiesContent.add(Center(child: Text(activities[i])));
+    for(int i = 0; i < activities.length; i++){
+      activitiesContent.add(
+        Container(
+          margin: EdgeInsets.fromLTRB(12, 8, 12, 0),
+          child: PrimaryActivityRow(activity: activities[i]),
+        )
+      );
     }
     return activitiesContent;
   }
