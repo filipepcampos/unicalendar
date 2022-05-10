@@ -1,4 +1,5 @@
 import 'package:uni/model/app_state.dart';
+import 'package:uni/model/entities/activity.dart';
 import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/model/entities/exam.dart';
 import 'package:uni/model/entities/lecture.dart';
@@ -28,6 +29,16 @@ class SetExamsAction {
 class SetExamsStatusAction {
   RequestStatus status;
   SetExamsStatusAction(this.status);
+}
+
+class SetActivitiesAction {
+  List<Activity> activities;
+  SetActivitiesAction(this.activities);
+}
+
+class SetActivitiesStatusAction {
+  RequestStatus status;
+  SetActivitiesStatusAction(this.status);
 }
 
 class SetRestaurantsAction {

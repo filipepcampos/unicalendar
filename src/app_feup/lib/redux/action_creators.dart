@@ -9,6 +9,7 @@ import 'package:uni/controller/load_static/terms_and_conditions.dart';
 import 'package:uni/controller/local_storage/app_bus_stop_database.dart';
 import 'package:uni/controller/local_storage/app_courses_database.dart';
 import 'package:uni/controller/local_storage/app_exams_database.dart';
+import 'package:uni/controller/local_storage/app_activities_database.dart';
 import 'package:uni/controller/local_storage/app_last_user_info_update_database.dart';
 import 'package:uni/controller/local_storage/app_lectures_database.dart';
 import 'package:uni/controller/local_storage/app_refresh_times_database.dart';
@@ -26,6 +27,7 @@ import 'package:uni/controller/schedule_fetcher/schedule_fetcher.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher_api.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher_html.dart';
 import 'package:uni/model/app_state.dart';
+import 'package:uni/model/entities/activity.dart';
 import 'package:uni/model/entities/course.dart';
 import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/model/entities/exam.dart';
@@ -142,6 +144,14 @@ ThunkAction<AppState> updateStateBasedOnLocalUserExams() {
     final AppExamsDatabase db = AppExamsDatabase();
     final List<Exam> exs = await db.exams();
     store.dispatch(SetExamsAction(exs));
+  };
+}
+
+ThunkAction<AppState> updateStateBasedOnLocalUserActivities() {
+  return (Store<AppState> store) async {
+    final AppActivitiesDatabase db = AppActivitiesDatabase();
+    final List<Activity> acts = await db.activities();
+    store.dispatch(SetActivitiesAction(acts));
   };
 }
 
@@ -458,6 +468,35 @@ ThunkAction<AppState> getUserBusTrips(Completer<Null> action) {
     } catch (e) {
       Logger().e('Failed to get Bus Stop information');
       store.dispatch(SetBusTripsStatusAction(RequestStatus.failed));
+    }
+
+    action.complete();
+  };
+}
+
+Future<List<Activity>> extractActivities(Store<AppState> store) async {
+  final List<Activity> activities = [
+    Activity("ES", "Kahoot #3", DateTime(2022, 4, 1),DateTime(2022, 5, 10, 10, 50)),
+    Activity("TCOMP", "Checkpoint 54", DateTime(2024, 4, 2), DateTime(2025, 5, 3))
+  ];
+  return activities;
+}
+
+ThunkAction<AppState> getUserActivities(Completer<Null> action) {
+  return (Store<AppState> store) async {
+    try {
+      store.dispatch(SetActivitiesStatusAction(RequestStatus.busy));
+
+      final List<Activity> activities = await extractActivities(store);
+
+      final AppActivitiesDatabase db = AppActivitiesDatabase();
+      db.saveNewActivities(activities);
+      
+      store.dispatch(SetActivitiesStatusAction(RequestStatus.successful));
+      store.dispatch(SetActivitiesAction(activities));
+    } catch (e) {
+      Logger().e('Failed to get Activities');
+      store.dispatch(SetActivitiesStatusAction(RequestStatus.failed));
     }
 
     action.complete();
