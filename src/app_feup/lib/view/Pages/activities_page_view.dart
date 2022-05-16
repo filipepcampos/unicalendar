@@ -87,8 +87,8 @@ class ActivitiesPageView extends StatelessWidget {
     Widget createGroupColumn(groupContent, BuildContext context) {
       return Container(
           key: Key('activities-page-group-column-$groupId'),
-          padding: EdgeInsets.all(8),
           child: ListView(
+            padding: EdgeInsets.all(8),
             children: this.createActivitiesRows(groupContent, context),
                 ),
         );
