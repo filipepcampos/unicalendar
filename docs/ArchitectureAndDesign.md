@@ -1,13 +1,13 @@
 ## Architecture and Design
 
-The purpose of this section is to describe our application’s architecture. To keep our feature simple and manageable we plan to implement it using the MVC design pattern by dividing it into the following modules: calendar logic, calendar UI (subdivided into a dashboard UI and a page UI), a module responsible for fetching data from the google sheet and a parser to transform the fetched data into Models to be used by the controller.
+The purpose of this section is to describe our application’s architecture. To keep our feature simple and manageable we plan to implement it using the MVC design pattern by dividing it into the following modules: calendar logic, calendar UI (subdivided into a HomePage widget UI and a page UI), a module responsible for fetching data from the google sheet and a parser to transform the fetched data into Models to be used by the controller.
 
 ## Logical Architecture
 
 ![Logical Architecture](../images/LogicalArchitecture.png)
 
 - Calendar UI - Display calendar in multiple formats.
-  - Dashboard UI - Display dashboard calendar.
+  - HomePage Widget UI - Display dashboard calendar.
   - Page UI - Display page calendar.
 - Calendar Logic - Command the display of the Model given a set of parameters (e.g. filters, ongoing, past activities, etc…).
 - Data Parser - Parse raw data into concrete Dart Models.
