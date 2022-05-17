@@ -6,6 +6,7 @@ import 'package:uni/model/home_page_model.dart';
 import 'package:uni/redux/actions.dart';
 import 'package:uni/utils/constants.dart' as Constants;
 import 'package:uni/view/Widgets/account_info_card.dart';
+import 'package:uni/view/Widgets/activity_card.dart';
 import 'package:uni/view/Widgets/back_button_exit_wrapper.dart';
 import 'package:uni/view/Widgets/bus_stop_card.dart';
 import 'package:uni/view/Widgets/exam_card.dart';
@@ -18,6 +19,8 @@ class MainCardsList extends StatelessWidget {
         ScheduleCard.fromEditingInformation(k, em, od),
     FAVORITE_WIDGET_TYPE.exams: (k, em, od) =>
         ExamCard.fromEditingInformation(k, em, od),
+    FAVORITE_WIDGET_TYPE.activities: (k, em, od) =>
+        ActivityCard.fromEditingInformation(k, em, od),
     FAVORITE_WIDGET_TYPE.account: (k, em, od) =>
         AccountInfoCard.fromEditingInformation(k, em, od),
     FAVORITE_WIDGET_TYPE.printBalance: (k, em, od) =>

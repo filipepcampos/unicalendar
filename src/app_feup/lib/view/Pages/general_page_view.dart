@@ -65,7 +65,7 @@ abstract class GeneralPageViewState extends State<StatefulWidget> {
   Widget getScaffold(BuildContext context, Widget body) {
     return Scaffold(
       appBar: buildAppBar(context),
-      drawer: NavigationDrawer(parentContext: context),
+    drawer: NavigationDrawer(parentContext: context),
       body: this.refreshState(context, body),
     );
   }
@@ -101,7 +101,9 @@ abstract class GeneralPageViewState extends State<StatefulWidget> {
               if (currentRouteName != Constants.navPersonalArea) {
                 Navigator.pushNamed(context, '/${Constants.navPersonalArea}');
               }
+
             },
+            //key: const Key( ('key' + '${Constants.navPersonalArea}')),
             child: SvgPicture.asset(
               'assets/images/logo_dark.svg',
               height: queryData.size.height / 25,
@@ -120,6 +122,7 @@ abstract class GeneralPageViewState extends State<StatefulWidget> {
         builder: (BuildContext context,
             AsyncSnapshot<DecorationImage> decorationImage) {
           return TextButton(
+            key: const Key('fotoicon'),
             onPressed: () => {
               Navigator.push(
                   context, MaterialPageRoute(builder: (__) => ProfilePage()))
