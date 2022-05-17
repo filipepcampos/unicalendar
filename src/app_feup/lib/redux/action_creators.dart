@@ -292,22 +292,20 @@ ThunkAction<AppState> getUserSchedule(
   };
 }
 
-ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action){
-  return (Store<AppState> store) async{
-    try{
+ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action) {
+  return (Store<AppState> store) async {
+    try {
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.busy));
 
       final List<Restaurant> restaurants =
-                      await RestaurantFetcherHtml().getRestaurants(store);
+          await RestaurantFetcherHtml().getRestaurants(store);
       // Updates local database according to information fetched -- Restaurants
       final RestaurantDatabase db = RestaurantDatabase();
       db.saveRestaurants(restaurants);
-      db.restaurants(day:null);
+      db.restaurants(day: null);
       store.dispatch(SetRestaurantsAction(restaurants));
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.successful));
-
-
-    } catch(e){
+    } catch (e) {
       Logger().e('Failed to get Restaurants: ${e.toString()}');
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.failed));
     }
@@ -475,6 +473,21 @@ ThunkAction<AppState> getUserBusTrips(Completer<Null> action) {
 }
 
 Future<List<Activity>> extractActivities(Store<AppState> store) async {
+  print("----------- EXTRACT ACTIVITIES ----------");
+  final List<CourseUnit> userUcs = store.state.content['currUcs'];
+  print("got user ucs");
+  print(userUcs);
+  for (CourseUnit uc in userUcs) {
+    print(uc.name);
+    print(uc.abbreviation);
+    print(uc.status);
+  }
+  /*
+  for (Course course in store.state.content['profile'].courses) {
+    if (course.state == 'A Frequentar') {}
+  }*/
+  return NetworkRouter.getActivities();
+  /*
   final List<Activity> activities = [
       Activity('ES', 'Kahoot #3', DateTime(2022, 4, 1),DateTime(2022, 5, 10, 10, 50)),
       Activity('TCOMP', 'Checkpoint 54', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 3, 10, 10, 50)),
@@ -482,7 +495,7 @@ Future<List<Activity>> extractActivities(Store<AppState> store) async {
       Activity('IA', 'Checkpoint 52', DateTime(2024, 4, 2, 10, 10, 50), DateTime(2025, 5, 12, 10, 10, 50)),
       Activity('CPD', 'Checkpoint 53', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 15, 10, 10, 50))
     ];
-  return activities;
+  return activities;*/
 }
 
 ThunkAction<AppState> getUserActivities(Completer<Null> action) {
@@ -494,7 +507,7 @@ ThunkAction<AppState> getUserActivities(Completer<Null> action) {
 
       final AppActivitiesDatabase db = AppActivitiesDatabase();
       db.saveNewActivities(activities);
-      
+
       store.dispatch(SetActivitiesStatusAction(RequestStatus.successful));
       store.dispatch(SetActivitiesAction(activities));
     } catch (e) {
