@@ -12,6 +12,7 @@ The purpose of this section is to describe our application’s architecture. To 
 - Calendar Logic - Command the display of the Model given a set of parameters (e.g. filters, ongoing, past activities, etc…).
 - Data Parser - Parse raw data into concrete Dart Models.
 - Networking - Obtain data from the backend google sheet.
+- Google Sheets API - Google sheet backend interface.
 
 # Physical Architecture
 
