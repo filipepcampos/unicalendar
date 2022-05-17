@@ -9,11 +9,11 @@
 | --- | --- |
 | *Name* | See UniCalendar |
 | *Actor* |  UP Member | 
-| *Description* | The UP member checks a calendar with upcoming Moodle activities through a dashboard on the main page. When the dashboard is clicked, a new page is brought up in which the user will have the possibility of filtering activities by course or exporting the calendar to multiple calendar apps. |
+| *Description* | The UP member checks a calendar with upcoming activities through a dashboard on the main page. When the dashboard is clicked, a new page is brought up in which the user will have the possibility of filtering activities by course or exporting the calendar to multiple calendar apps. |
 | *Preconditions* | - The UP member must have a UP account.<br>- The UP member must be registered to courses. |
 | *Postconditions* | - [Optional] When exporting, the UP member gets the calendar as an ICS file. |
-| *Normal flow* | 1. The UP member starts the UNI app.<br> 2. The UP member is presented with a dashboard on the main page showing upcoming moodle activities.<br> 3. The UP member clicks the dashboard to expand it.<br> 4. If wanted, the UP member may filter the calendar by course.<br> 5. If wanted, the UP member can export the calendar to other extern app through an ICS file. |
-| *Alternative flows and exceptions* | 1. [No activities] If in step 2 of the normal flow there aren't any exams or any other activity the dashboard displays a simple message stating the case.<br>2. Alternatively, in step 3 the UP member may expand the lateral panel of the app and click the "Moodle's Activities" option.|
+| *Normal flow* | 1. The UP member starts the UNI app.<br> 2. The UP member is presented with a dashboard on the main page showing upcoming activities.<br> 3. The UP member clicks the dashboard to expand it.<br> 4. If wanted, the UP member may filter the calendar by course.<br> 5. If wanted, the UP member can export the calendar to other extern app through an ICS file. |
+| *Alternative flows and exceptions* | 1. [No activities] If in step 2 of the normal flow there aren't any exams or any other activity the dashboard displays a simple message stating the case.<br>2. Alternatively, in step 3 the UP member may expand the lateral panel of the app and click the "Activities" option.|
 
 |||
 |-|-|
@@ -36,12 +36,12 @@
 | *Alternative flows and exceptions* | TODO |
 
 ### User stories
- - [As an UP member, I want to see a Moodle activity calendar dashboard on the homescreen, so that I can keep up with their deadlines.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/1)
- - [As an UP member, I want to see a Moodle activity calendar page, so that I can keep up with their deadlines and have more functionalities.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/2)
+ - [As an UP member, I want to see an activity calendar dashboard on the homescreen, so that I can keep up with their deadlines.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/1)
+ - [As an UP member, I want to see an activity calendar page, so that I can keep up with their deadlines and have more functionalities.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/2)
  - [As an UP member, I want to be able to filter the calendar for ongoing and future activities by their course, so that I can better keep track of the deadlines.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/3)
  - [As an UP member, I want to be able to click on the homescreen calendar dashboard, so that I can go to the corresponding page.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/4)
  - [As an UP member, I want to be able to export the activities calendar with the current filters applied to an external calendar application, so that I can easily synchronize with my everyday use calendar and manage my time more efficiently.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/5)
- - [As an UP member, I want to be able to click on an “Moodle’s Activities” option on the application sidebar, so that I can go to the corresponding page.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/6)
+ - [As an UP member, I want to be able to click on an “Activities” option on the application sidebar, so that I can go to the corresponding page.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/6)
 
 ### Domain model
 
