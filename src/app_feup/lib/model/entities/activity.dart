@@ -41,7 +41,7 @@ class Activity {
   }
 
   String getHourMinute() {
-    return '${this._end.hour}:${this._end.minute}';
+    return '${this._end.hour.toString().padLeft(2, '0')}:${this._end.minute.toString().padLeft(2, '0')}';
   }
 
   String getDayMonth() {
