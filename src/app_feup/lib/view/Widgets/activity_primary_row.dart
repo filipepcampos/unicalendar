@@ -6,38 +6,27 @@ import 'package:uni/view/Widgets/generic_row.dart';
 class PrimaryActivityRow extends StatelessWidget {
   final Activity _activity;
 
-  PrimaryActivityRow(
-      {Key key,
-      @required Activity activity})
-      : this._activity = activity, super(key: key);
+  PrimaryActivityRow({Key key, @required Activity activity})
+      : this._activity = activity,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DateRectangle(
-          date: this._activity.getWeekDayMonth()
-        ),
-        GenericRow(
+    return Column(children: [
+      DateRectangle(date: this._activity.getWeekDayMonth()),
+      GenericRow(
           topBottomPaddingDelta: 10,
-          left: Text(
-            this._activity.getHourMinute(),
-            style: Theme.of(context).textTheme.headline4
-          ),
-          center: Column(
-            children: [
-              Text(
-                this._activity.getCourseUnit(),
-                style: Theme.of(context).textTheme.headline3.apply(fontSizeDelta: 10)
-              ),
-              Text(
-                this._activity.getDescription(),
-                style: Theme.of(context).textTheme.headline4
-              )
-            ]
-          )
-        )
-      ]
-    );
+          left: Text(this._activity.getHourMinute(),
+              style: Theme.of(context).textTheme.headline4),
+          center: Column(children: [
+            Text(this._activity.getCourseUnit(),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    .apply(fontSizeDelta: 10)),
+            Text(this._activity.getDescription(),
+                style: Theme.of(context).textTheme.headline4)
+          ]))
+    ]);
   }
 }

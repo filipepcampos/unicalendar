@@ -7,7 +7,9 @@ class Activity {
   DateTime _start;
   DateTime _end;
 
-  Activity(String courseUnit, String description, DateTime start, DateTime end){
+
+  Activity(
+      String courseUnit, String description, DateTime start, DateTime end) {
     this._courseUnit = courseUnit;
     this._description = description;
     this._start = start;
@@ -15,19 +17,19 @@ class Activity {
   }
 
   String getCourseUnit() {
-      return this._courseUnit;
+    return this._courseUnit;
   }
 
   String getDescription() {
-      return this._description;
+    return this._description;
   }
-  
+
   DateTime getStart() {
-      return this._start;
+    return this._start;
   }
 
   DateTime getEnd() {
-      return this._end;
+    return this._end;
   }
 
   bool isOccuring() {
@@ -40,7 +42,7 @@ class Activity {
   }
 
   String getHourMinute() {
-    return '${this._end.hour}:${this._end.minute}';
+    return '${this._end.hour.toString().padLeft(2, '0')}:${this._end.minute.toString().padLeft(2, '0')}';
   }
 
   String getDayMonth() {
