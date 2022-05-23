@@ -473,29 +473,17 @@ ThunkAction<AppState> getUserBusTrips(Completer<Null> action) {
 }
 
 Future<List<Activity>> extractActivities(Store<AppState> store) async {
-  print("----------- EXTRACT ACTIVITIES ----------");
-  final List<CourseUnit> userUcs = store.state.content['currUcs'];
-  print("got user ucs");
-  print(userUcs);
-  for (CourseUnit uc in userUcs) {
-    print(uc.name);
-    print(uc.abbreviation);
-    print(uc.status);
-  }
-  /*
-  for (Course course in store.state.content['profile'].courses) {
-    if (course.state == 'A Frequentar') {}
-  }*/
-  return NetworkRouter.getActivities();
-  /*
-  final List<Activity> activities = [
-      Activity('ES', 'Kahoot #3', DateTime(2022, 4, 1),DateTime(2022, 5, 10, 10, 50)),
-      Activity('TCOMP', 'Checkpoint 54', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 3, 10, 10, 50)),
-      Activity('COMP', 'Checkpoint 51', DateTime(2024, 4, 2, 10, 10, 50), DateTime(2025, 5, 3, 10, 10, 50)),
-      Activity('IA', 'Checkpoint 52', DateTime(2024, 4, 2, 10, 10, 50), DateTime(2025, 5, 12, 10, 10, 50)),
-      Activity('CPD', 'Checkpoint 53', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 15, 10, 10, 50))
-    ];
-  return activities;*/
+  final List<Course> courses = store.state.content['profile'].courses;
+  final Map<String, String> coursesState = store.state.content['coursesStates'];
+
+  final List<Course> activeCourses = courses.where(
+    (c) => coursesState.containsKey(c.name)).toList();
+
+  final List<String> abbreviations = activeCourses.map(
+    (c) => c.abbreviation).toList();
+
+  Future<List<Activity>> activities = NetworkRouter.getActivities(abbreviations);
+  return activities;
 }
 
 ThunkAction<AppState> getUserActivities(Completer<Null> action) {
@@ -503,13 +491,18 @@ ThunkAction<AppState> getUserActivities(Completer<Null> action) {
     try {
       store.dispatch(SetActivitiesStatusAction(RequestStatus.busy));
 
+      final List<CourseUnit> userUcs = store.state.content['currUcs'];
+      final Set<String> ucAbbreviations = userUcs.map((uc) => uc.abbreviation).toSet();
+
       final List<Activity> activities = await extractActivities(store);
+      final List<Activity> userActivities = activities.where((activity) =>
+         ucAbbreviations.contains(activity.getCourseUnit())).toList();
 
       final AppActivitiesDatabase db = AppActivitiesDatabase();
-      db.saveNewActivities(activities);
+      db.saveNewActivities(userActivities);
 
       store.dispatch(SetActivitiesStatusAction(RequestStatus.successful));
-      store.dispatch(SetActivitiesAction(activities));
+      store.dispatch(SetActivitiesAction(userActivities));
     } catch (e) {
       Logger().e('Failed to get Activities');
       store.dispatch(SetActivitiesStatusAction(RequestStatus.failed));

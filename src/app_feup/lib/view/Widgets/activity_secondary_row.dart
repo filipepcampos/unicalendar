@@ -36,7 +36,7 @@ class SecondaryActivityRow extends StatelessWidget {
           style: Theme.of(context).textTheme.headline4.apply(fontSizeDelta: -4)
         ),
         right: Text(
-          this._activity.getCourse(),
+          this._activity.getCourseUnit(),
           style: Theme.of(context).textTheme.headline3.apply(fontSizeDelta: 5)
         )
       )

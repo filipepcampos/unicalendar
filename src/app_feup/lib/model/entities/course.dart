@@ -29,6 +29,7 @@ class Course {
   static Course fromJson(dynamic data) {
     return Course(
         id: data['cur_id'],
+        abbreviation: data['cur_sigla'],
         festId: data['fest_id'],
         name: data['cur_nome'],
         currYear: data['ano_curricular'],

@@ -2,20 +2,20 @@
 import 'package:uni/utils/constants.dart' as Constants;
 
 class Activity {
-  String _course;
+  String _courseUnit;
   String _description;
   DateTime _start;
   DateTime _end;
 
   Activity(String course, String description, DateTime start, DateTime end){
-    this._course = course;
+    this._courseUnit = course;
     this._description = description;
     this._start = start;
     this._end = end;
   }
 
-  String getCourse() {
-      return this._course;
+  String getCourseUnit() {
+      return this._courseUnit;
   }
 
   String getDescription() {
@@ -53,7 +53,7 @@ class Activity {
 
   Map<String, dynamic> toMap() {
     return {
-      'course': this._course,
+      'courseUnit': this._courseUnit,
       'description': this._description,
       'start': this._start,
       'end': this._end

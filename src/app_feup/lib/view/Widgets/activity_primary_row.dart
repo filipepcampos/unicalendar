@@ -27,7 +27,7 @@ class PrimaryActivityRow extends StatelessWidget {
           center: Column(
             children: [
               Text(
-                this._activity.getCourse(),
+                this._activity.getCourseUnit(),
                 style: Theme.of(context).textTheme.headline3.apply(fontSizeDelta: 10)
               ),
               Text(

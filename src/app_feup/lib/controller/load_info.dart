@@ -65,13 +65,16 @@ Future loadRemoteUserInfoToState(Store<AppState> store) async {
   store.dispatch(getUserCoursesState(coursesStates));
   store.dispatch(getUserBusTrips(trips));
   store.dispatch(getRestaurantsFromFetcher(restaurants));
-  store.dispatch(getUserActivities(activities));
 
   final Tuple2<String, String> userPersistentInfo =
       await AppSharedPreferences.getPersistentUserInfo();
   userInfo.future.then((value) {
     store.dispatch(getUserExams(exams, ParserExams(), userPersistentInfo));
     store.dispatch(getUserSchedule(schedule, userPersistentInfo));
+  });
+
+  Future.wait([userInfo.future, coursesStates.future]).then((value) {
+    store.dispatch(getUserActivities(activities));
   });
 
   final allRequests = Future.wait([
