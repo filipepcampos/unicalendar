@@ -11,8 +11,4 @@ Feature: Visualize the Activities calendar widget on the homescreen.
         And I tap the "adicionar widget" button
         And I tap the "atividades" button
         And I tap the "editar" button
-        Then I expect the text "Atividades" to be present
-
-        # Given that I have the app homescreen open,
-        # When I scroll through the home screen,
-        # Then I should be able to find and see the Activities calendar widget.
+        And I wait until the widget of type "ActivityCard" is present
