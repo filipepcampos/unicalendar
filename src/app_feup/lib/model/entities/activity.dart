@@ -2,32 +2,33 @@
 import 'package:uni/utils/constants.dart' as Constants;
 
 class Activity {
-  String _course;
+  String _courseUnit;
   String _description;
   DateTime _start;
   DateTime _end;
 
-  Activity(String course, String description, DateTime start, DateTime end){
-    this._course = course;
+  Activity(
+      String courseUnit, String description, DateTime start, DateTime end) {
+    this._courseUnit = courseUnit;
     this._description = description;
     this._start = start;
     this._end = end;
   }
 
-  String getCourse() {
-      return this._course;
+  String getCourseUnit() {
+    return this._courseUnit;
   }
 
   String getDescription() {
-      return this._description;
+    return this._description;
   }
-  
+
   DateTime getStart() {
-      return this._start;
+    return this._start;
   }
 
   DateTime getEnd() {
-      return this._end;
+    return this._end;
   }
 
   bool isOccuring() {
@@ -53,7 +54,7 @@ class Activity {
 
   Map<String, dynamic> toMap() {
     return {
-      'course': this._course,
+      'courseUnit': this._courseUnit,
       'description': this._description,
       'start': this._start,
       'end': this._end
