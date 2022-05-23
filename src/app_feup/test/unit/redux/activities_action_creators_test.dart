@@ -44,12 +44,12 @@ void main() {
       DateFormat('dd/MM/yy H:m').parse('02/02/1971 23:59'));
 
     when(mockStore.state).thenReturn(AppState(content));
-    test('When given two activities', () async {
+    test('When given activities', () async {
       final Completer<Null> completer = Completer();
       final actionCreator =
           getUserActivities(completer, userPersistentInfo, fetcher: fetcherMock);
       when(fetcherMock.getActivities(any))
-          .thenAnswer((_) async => [activity1, activity2]);
+          .thenAnswer((_) async => [activity1, activity2, activity3]);
 
       actionCreator(mockStore);
       await completer.future;
