@@ -7,8 +7,8 @@ class Activity {
   DateTime _start;
   DateTime _end;
 
-  Activity(String course, String description, DateTime start, DateTime end){
-    this._courseUnit = course;
+  Activity(String courseUnit, String description, DateTime start, DateTime end){
+    this._courseUnit = courseUnit;
     this._description = description;
     this._start = start;
     this._end = end;

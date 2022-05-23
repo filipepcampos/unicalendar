@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uni/controller/activities_fetcher/activities_fetcher_api.dart';
 import 'package:uni/controller/load_info.dart';
 import 'package:uni/controller/load_static/terms_and_conditions.dart';
 import 'package:uni/controller/local_storage/app_bus_stop_database.dart';
@@ -22,6 +23,7 @@ import 'package:uni/controller/parsers/parser_courses.dart';
 import 'package:uni/controller/parsers/parser_exams.dart';
 import 'package:uni/controller/parsers/parser_fees.dart';
 import 'package:uni/controller/parsers/parser_print_balance.dart';
+import 'package:uni/controller/activities_fetcher/activities_fetcher.dart';
 import 'package:uni/controller/restaurant_fetcher/restaurant_fetcher_html.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher_api.dart';
@@ -472,37 +474,32 @@ ThunkAction<AppState> getUserBusTrips(Completer<Null> action) {
   };
 }
 
-Future<List<Activity>> extractActivities(Store<AppState> store) async {
-  final List<Course> courses = store.state.content['profile'].courses;
-  final Map<String, String> coursesState = store.state.content['coursesStates'];
-
-  final List<Course> activeCourses = courses.where(
-    (c) => coursesState.containsKey(c.name)).toList();
-
-  final List<String> abbreviations = activeCourses.map(
-    (c) => c.abbreviation).toList();
-
-  Future<List<Activity>> activities = NetworkRouter.getActivities(abbreviations);
-  return activities;
-}
-
-ThunkAction<AppState> getUserActivities(Completer<Null> action) {
+ThunkAction<AppState> getUserActivities(Completer<Null> action, 
+  Tuple2<String, String> userPersistentInfo, {ActivitiesFetcher fetcher}) {
   return (Store<AppState> store) async {
     try {
       store.dispatch(SetActivitiesStatusAction(RequestStatus.busy));
 
       final List<CourseUnit> userUcs = store.state.content['currUcs'];
-      final Set<String> ucAbbreviations = userUcs.map((uc) => uc.abbreviation).toSet();
+      final Set<String> ucAbbreviations = userUcs.map(
+        (uc) => uc.abbreviation).toSet();
 
-      final List<Activity> activities = await extractActivities(store);
+      final List<Activity> activities = await (
+        (fetcher?.getActivities(store)) ??
+          (ActivitiesFetcherApi()).getActivities(store)
+        );
+
       final List<Activity> userActivities = activities.where((activity) =>
          ucAbbreviations.contains(activity.getCourseUnit())).toList();
 
-      final AppActivitiesDatabase db = AppActivitiesDatabase();
-      db.saveNewActivities(userActivities);
+      // Updates local database according to the information fetched -- Lectures
+      if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
+        final AppActivitiesDatabase db = AppActivitiesDatabase();
+        db.saveNewActivities(userActivities);
+      }
 
-      store.dispatch(SetActivitiesStatusAction(RequestStatus.successful));
       store.dispatch(SetActivitiesAction(userActivities));
+      store.dispatch(SetActivitiesStatusAction(RequestStatus.successful));
     } catch (e) {
       Logger().e('Failed to get Activities');
       store.dispatch(SetActivitiesStatusAction(RequestStatus.failed));
