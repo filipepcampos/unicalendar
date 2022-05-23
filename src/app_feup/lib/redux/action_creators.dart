@@ -477,7 +477,7 @@ ThunkAction<AppState> getUserBusTrips(Completer<Null> action) {
 Future<List<Activity>> extractActivities(Store<AppState> store) async {
   final List<Activity> activities = [
       Activity('ES', 'Kahoot #3', DateTime(2022, 4, 1),DateTime(2022, 5, 10, 10, 50)),
-      Activity('TCOMP', 'Checkpoint 54', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 3, 10, 10, 50)),
+      Activity('TCOMP', 'Checkpoint 54', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 3, 1, 1, 50)),
       Activity('COMP', 'Checkpoint 51', DateTime(2024, 4, 2, 10, 10, 50), DateTime(2025, 5, 3, 10, 10, 50)),
       Activity('IA', 'Checkpoint 52', DateTime(2024, 4, 2, 10, 10, 50), DateTime(2025, 5, 12, 10, 10, 50)),
       Activity('CPD', 'Checkpoint 53', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 15, 10, 10, 50))
