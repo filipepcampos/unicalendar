@@ -62,6 +62,7 @@ class MainCardsList extends StatelessWidget {
           }), //Add FAB functionality here
       tooltip: 'Adicionar widget',
       child: Icon(Icons.add),
+      key: const Key('adicionar widget'),
     );
   }
 
@@ -82,6 +83,7 @@ class MainCardsList extends StatelessWidget {
               addCardToFavorites(key, context);
               Navigator.pop(context);
             },
+            key: Key(v(Key(key.index.toString()), false, null).getTitle().toString().toLowerCase()),
           ),
           decoration: BoxDecoration(
               border: Border(
@@ -126,7 +128,9 @@ class MainCardsList extends StatelessWidget {
             onTap: () => StoreProvider.of<AppState>(context)
                 .dispatch(SetHomePageEditingMode(!this.isEditing(context))),
             child: Text(this.isEditing(context) ? 'Concluir Edição' : 'Editar',
-                style: Theme.of(context).textTheme.caption))
+                style: Theme.of(context).textTheme.caption),
+            key: const Key('editar'),
+        ),
       ]),
     );
   }
