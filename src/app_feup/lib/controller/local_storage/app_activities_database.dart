@@ -10,7 +10,7 @@ import 'package:sqflite/sqflite.dart';
 class AppActivitiesDatabase extends AppDatabase {
   AppActivitiesDatabase()
       : super('activity.db', [
-          '''CREATE TABLE activities(course TEXT, description TEXT, start DATETIME, end DATETIME)'''
+          '''CREATE TABLE activities(courseUnit TEXT, description TEXT, start INT, end INT)'''
         ]);
 
   /// Replaces all of the data in this database with [activities].
@@ -30,10 +30,10 @@ class AppActivitiesDatabase extends AppDatabase {
     // Convert the List<Map<String, dynamic> into a List<Activity>.
     return List.generate(maps.length, (i) {
       return Activity(
-          maps[i]['course'],
+          maps[i]['courseUnit'],
           maps[i]['description'],
-          maps[i]['start'],
-          maps[i]['end']);
+          DateTime.fromMillisecondsSinceEpoch(maps[i]['start']),
+          DateTime.fromMillisecondsSinceEpoch(maps[i]['end']));
     });
   }
 
@@ -42,9 +42,12 @@ class AppActivitiesDatabase extends AppDatabase {
   /// If a row with the same data is present, it will be replaced.
   Future<void> _insertActivities(List<Activity> activities) async {
     for (Activity activity in activities) {
+      Map<String, dynamic> map = activity.toMap();
+      map['start'] = map['start'].millisecondsSinceEpoch;
+      map['end'] = map['end'].millisecondsSinceEpoch;
       await insertInDatabase(
         'activities',
-        activity.toMap(),
+        map,
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }

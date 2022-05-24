@@ -2,6 +2,7 @@
 import 'package:redux/redux.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
+import 'package:uni/controller/activities_fetcher/activities_fetcher.dart';
 import 'package:uni/controller/parsers/parser_exams.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher.dart';
 import 'package:uni/model/app_state.dart';
@@ -15,3 +16,5 @@ class MockClient extends Mock implements http.Client {}
 class MockResponse extends Mock implements http.Response {}
 
 class MockScheduleFetcher extends Mock implements ScheduleFetcher {}
+
+class MockActivitiesFetcher extends Mock implements ActivitiesFetcher {}

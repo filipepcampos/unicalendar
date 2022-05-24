@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uni/controller/activities_fetcher/activities_fetcher_api.dart';
 import 'package:uni/controller/load_info.dart';
 import 'package:uni/controller/load_static/terms_and_conditions.dart';
 import 'package:uni/controller/local_storage/app_bus_stop_database.dart';
@@ -22,6 +23,7 @@ import 'package:uni/controller/parsers/parser_courses.dart';
 import 'package:uni/controller/parsers/parser_exams.dart';
 import 'package:uni/controller/parsers/parser_fees.dart';
 import 'package:uni/controller/parsers/parser_print_balance.dart';
+import 'package:uni/controller/activities_fetcher/activities_fetcher.dart';
 import 'package:uni/controller/restaurant_fetcher/restaurant_fetcher_html.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher_api.dart';
@@ -292,22 +294,20 @@ ThunkAction<AppState> getUserSchedule(
   };
 }
 
-ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action){
-  return (Store<AppState> store) async{
-    try{
+ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action) {
+  return (Store<AppState> store) async {
+    try {
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.busy));
 
       final List<Restaurant> restaurants =
-                      await RestaurantFetcherHtml().getRestaurants(store);
+          await RestaurantFetcherHtml().getRestaurants(store);
       // Updates local database according to information fetched -- Restaurants
       final RestaurantDatabase db = RestaurantDatabase();
       db.saveRestaurants(restaurants);
-      db.restaurants(day:null);
+      db.restaurants(day: null);
       store.dispatch(SetRestaurantsAction(restaurants));
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.successful));
-
-
-    } catch(e){
+    } catch (e) {
       Logger().e('Failed to get Restaurants: ${e.toString()}');
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.failed));
     }
@@ -474,29 +474,32 @@ ThunkAction<AppState> getUserBusTrips(Completer<Null> action) {
   };
 }
 
-Future<List<Activity>> extractActivities(Store<AppState> store) async {
-  final List<Activity> activities = [
-      Activity('ES', 'Kahoot #3', DateTime(2022, 4, 1),DateTime(2022, 5, 10, 10, 50)),
-      Activity('TCOMP', 'Checkpoint 54', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 3, 1, 1, 50)),
-      Activity('COMP', 'Checkpoint 51', DateTime(2024, 4, 2, 10, 10, 50), DateTime(2025, 5, 3, 10, 10, 50)),
-      Activity('IA', 'Checkpoint 52', DateTime(2024, 4, 2, 10, 10, 50), DateTime(2025, 5, 12, 10, 10, 50)),
-      Activity('CPD', 'Checkpoint 53', DateTime(2022, 4, 2, 10, 10, 50), DateTime(2025, 5, 15, 10, 10, 50))
-    ];
-  return activities;
-}
-
-ThunkAction<AppState> getUserActivities(Completer<Null> action) {
+ThunkAction<AppState> getUserActivities(Completer<Null> action, 
+  Tuple2<String, String> userPersistentInfo, {ActivitiesFetcher fetcher}) {
   return (Store<AppState> store) async {
     try {
       store.dispatch(SetActivitiesStatusAction(RequestStatus.busy));
 
-      final List<Activity> activities = await extractActivities(store);
+      final List<CourseUnit> userUcs = store.state.content['currUcs'];
+      final Set<String> ucAbbreviations = userUcs.map(
+        (uc) => uc.abbreviation).toSet();
 
-      final AppActivitiesDatabase db = AppActivitiesDatabase();
-      db.saveNewActivities(activities);
-      
+      final List<Activity> activities = await (
+        (fetcher?.getActivities(store)) ??
+          (ActivitiesFetcherApi()).getActivities(store)
+        );
+
+      final List<Activity> userActivities = activities.where((activity) =>
+         ucAbbreviations.contains(activity.getCourseUnit())).toList();
+
+      // Updates local database according to the information fetched -- Lectures
+      if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
+        final AppActivitiesDatabase db = AppActivitiesDatabase();
+        db.saveNewActivities(userActivities);
+      }
+
+      store.dispatch(SetActivitiesAction(userActivities));
       store.dispatch(SetActivitiesStatusAction(RequestStatus.successful));
-      store.dispatch(SetActivitiesAction(activities));
     } catch (e) {
       Logger().e('Failed to get Activities');
       store.dispatch(SetActivitiesStatusAction(RequestStatus.failed));

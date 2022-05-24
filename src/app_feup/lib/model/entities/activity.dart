@@ -7,6 +7,7 @@ class Activity {
   DateTime _start;
   DateTime _end;
 
+
   Activity(
       String courseUnit, String description, DateTime start, DateTime end) {
     this._courseUnit = courseUnit;
