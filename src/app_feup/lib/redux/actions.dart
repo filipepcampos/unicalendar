@@ -61,7 +61,6 @@ class SetScheduleStatusAction {
   SetScheduleStatusAction(this.status);
 }
 
-
 class SetInitialStoreStateAction {
   SetInitialStoreStateAction();
 }
@@ -169,6 +168,11 @@ class SetLastUserInfoUpdateTime {
 class SetExamFilter {
   Map<String, bool> filteredExams;
   SetExamFilter(this.filteredExams);
+}
+
+class SetActivitiesFilter {
+  Map<String, bool> filteredActivities;
+  SetActivitiesFilter(this.filteredActivities);
 }
 
 class SetUserFaculties {

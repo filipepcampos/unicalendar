@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:encrypt/encrypt.dart';
 import 'package:logger/logger.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uni/model/entities/activity.dart';
 import 'package:uni/model/entities/exam.dart';
 import 'package:uni/model/home_page_model.dart';
 
@@ -28,8 +30,7 @@ class AppSharedPreferences {
     FAVORITE_WIDGET_TYPE.busStops
   ];
   static final String filteredExamsTypes = 'filtered_exam_types';
-  static final List<String> defaultFilteredExamTypes =
-      Exam.getExamTypes().keys.toList();
+  static final List<String> defaultFilteredExamTypes = Exam.getExamTypes().keys.toList();
 
   /// Saves the user's student number, password and faculties.
   static Future savePersistentUserInfo(user, pass, faculties) async {
@@ -37,8 +38,7 @@ class AppSharedPreferences {
     prefs.setString(userNumber, user);
     prefs.setString(userPw, encode(pass));
     // print('There are faculties ' + faculties[0] + '\n\n\n\n');
-    prefs.setStringList(
-        userFaculties, faculties); // Could be multiple faculties
+    prefs.setStringList(userFaculties, faculties); // Could be multiple faculties
   }
 
   /// Sets whether or not the Terms and Conditions have been accepted.
@@ -96,8 +96,7 @@ class AppSharedPreferences {
   /// Returns the user's student number.
   static Future<String> getUserNumber() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(userNumber) ??
-        ''; // empty string for the case it does not exist
+    return prefs.getString(userNumber) ?? ''; // empty string for the case it does not exist
   }
 
   /// Returns the user's password, in plain text format.
@@ -117,8 +116,7 @@ class AppSharedPreferences {
   /// Replaces the user's favorite widgets with [newFavorites].
   static saveFavoriteCards(List<FAVORITE_WIDGET_TYPE> newFavorites) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(
-        favoriteCards, newFavorites.map((a) => a.index.toString()).toList());
+    prefs.setStringList(favoriteCards, newFavorites.map((a) => a.index.toString()).toList());
   }
 
   /// Returns a list containing the user's favorite widgets.
@@ -126,33 +124,47 @@ class AppSharedPreferences {
     final prefs = await SharedPreferences.getInstance();
     final List<String> storedFavorites = prefs.getStringList(favoriteCards);
     if (storedFavorites == null) return defaultFavoriteCards;
-    return storedFavorites
-            .map((i) => FAVORITE_WIDGET_TYPE.values[int.parse(i)])
-            .toList() ??
-        defaultFavoriteCards;
+    return storedFavorites.map((i) => FAVORITE_WIDGET_TYPE.values[int.parse(i)]).toList() ?? defaultFavoriteCards;
   }
 
   /// Replaces the user's exam filter settings with [newFilteredExamTypes].
   static saveFilteredExams(Map<String, bool> newFilteredExamTypes) async {
     final prefs = await SharedPreferences.getInstance();
 
-    final List<String> newTypes = newFilteredExamTypes.keys
-        .where((type) => newFilteredExamTypes[type] == true)
-        .toList();
+    final List<String> newTypes = newFilteredExamTypes.keys.where((type) => newFilteredExamTypes[type] == true).toList();
     prefs.setStringList(filteredExamsTypes, newTypes);
+  }
+
+  /// Replaces the user's activities filter settings with [newFilteredActivityCourseUnits].
+  static saveFilteredActivities(Map<String, bool> newFilteredActivityCourseUnits) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final List<String> newCourseUnits =
+        newFilteredActivityCourseUnits.keys.where((courseUnit) => newFilteredActivityCourseUnits[courseUnit] == true).toList();
+    prefs.setStringList('filtered_activity_course_units', newCourseUnits);
   }
 
   // Returns the user's exam filter settings.
   static Future<Map<String, bool>> getFilteredExams() async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String> storedFilteredExamTypes =
-        prefs.getStringList(filteredExamsTypes);
+    final List<String> storedFilteredExamTypes = prefs.getStringList(filteredExamsTypes);
 
     if (storedFilteredExamTypes == null) {
       return Map.fromIterable(defaultFilteredExamTypes, value: (type) => true);
     }
-    return Map.fromIterable(defaultFilteredExamTypes,
-        value: (type) => storedFilteredExamTypes.contains(type));
+    return Map.fromIterable(defaultFilteredExamTypes, value: (type) => storedFilteredExamTypes.contains(type));
+  }
+
+  // Returns the user's activity filter settings.
+  static Future<Map<String, bool>> getFilteredActivities() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> storedFilteredActivityCourseUnits = prefs.getStringList('filtered_activity_course_units');
+    final List<String> defaultFilteredActivityCourseUnits = Activity.courseUnits;
+
+    if (storedFilteredActivityCourseUnits == null) {
+      return Map.fromIterable(defaultFilteredActivityCourseUnits, value: (courseUnit) => true);
+    }
+    return Map.fromIterable(defaultFilteredActivityCourseUnits, value: (courseUnit) => storedFilteredActivityCourseUnits.contains(courseUnit));
   }
 
   /// Encrypts [plainText] and returns its base64 representation.

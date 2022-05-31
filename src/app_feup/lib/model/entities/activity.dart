@@ -6,10 +6,9 @@ class Activity {
   String _description;
   DateTime _start;
   DateTime _end;
+  static List<String> courseUnits;
 
-
-  Activity(
-      String courseUnit, String description, DateTime start, DateTime end) {
+  Activity(String courseUnit, String description, DateTime start, DateTime end) {
     this._courseUnit = courseUnit;
     this._description = description;
     this._start = start;
@@ -54,11 +53,6 @@ class Activity {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'courseUnit': this._courseUnit,
-      'description': this._description,
-      'start': this._start,
-      'end': this._end
-    };
+    return {'courseUnit': this._courseUnit, 'description': this._description, 'start': this._start, 'end': this._end};
   }
 }
