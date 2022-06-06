@@ -31,6 +31,7 @@ class _ActivityFilterMenuState extends State<ActivityFilterMenu> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      key: Key('ActivitiesFiltersPopup'),
       icon: Icon(Icons.settings),
       onPressed: () {
         showAlertDialog(context);

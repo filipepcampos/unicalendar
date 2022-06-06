@@ -18,4 +18,4 @@ StepDefinitionGeneric ActivitySubsectionIsOpenStep() {
       context.expect(isSectionPresent, true);
     }
   );
-}
+} 

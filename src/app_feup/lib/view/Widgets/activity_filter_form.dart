@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:uni/model/app_state.dart';
-import 'package:uni/model/entities/activity.dart';
 import 'package:uni/redux/action_creators.dart';
 
 class ActivityFilterForm extends StatefulWidget {
@@ -22,6 +21,7 @@ class _ActivityFilterFormState extends State<ActivityFilterForm> {
       actions: [
         TextButton(child: Text('Cancelar'), onPressed: () => Navigator.pop(context)),
         ElevatedButton(
+            key: Key('ActivitiesFilterConfirmButton'),
             child: Text('Confirmar'),
             onPressed: () {
               StoreProvider.of<AppState>(context).dispatch(setFilteredActivitites(widget.filteredActivities, Completer()));
@@ -34,6 +34,7 @@ class _ActivityFilterFormState extends State<ActivityFilterForm> {
 
   Widget getActivitiesCheckboxes(Map<String, bool> filteredActivities, BuildContext context) {
     return ListView(
+        key: Key('ActivityFilterCheckboxList'),
         children: List.generate(filteredActivities.length, (i) {
       final String key = filteredActivities.keys.elementAt(i);
       return CheckboxListTile(
@@ -44,7 +45,7 @@ class _ActivityFilterFormState extends State<ActivityFilterForm> {
             softWrap: false,
             maxLines: 2,
           ),
-          key: Key('ActivityCheck' + key),
+          key: Key('ActivityCheck' + i.toString()),
           value: filteredActivities[key],
           onChanged: (value) {
             setState(() {
