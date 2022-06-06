@@ -4,7 +4,7 @@ The purpose of this section is to describe our application’s architecture. To 
 
 ## Logical Architecture
 
-![Logical Architecture](../images/LogicalArchitecture.png)
+<img width="500" alt="Logical Architecture" src="../images/LogicalArchitecture.png">
 
 - Calendar UI - Display calendar in multiple formats.
   - HomePage Widget UI - Display dashboard calendar.
@@ -29,7 +29,7 @@ For the vertical prototype we implemented a new view with boilerplate content th
 
 The prototype is running on **Flutter 2.0.1**, the version used by the official [UNI app](https://github.com/NIAEFEUP/project-schrodinger).
 
-![Sidebar](https://user-images.githubusercontent.com/79420500/162536824-60d1d1c1-0dbf-4f33-b6cf-0090425904fd.jpg)
+<img width="300" alt="Sidebar" src="https://user-images.githubusercontent.com/79420500/162536824-60d1d1c1-0dbf-4f33-b6cf-0090425904fd.jpg">
 
-![Moodle Activities Page](https://user-images.githubusercontent.com/79420500/162536838-872004d7-8e9c-4cbf-a021-f408ff8614eb.jpg)
+<img width="300" alt="Activities Page" src="https://user-images.githubusercontent.com/79420500/162536838-872004d7-8e9c-4cbf-a021-f408ff8614eb.jpg">
 
