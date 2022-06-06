@@ -11,8 +11,7 @@ import 'steps/uncheck_all_activity_filters_step.dart';
 
 Future<void> main() {
   final config = FlutterTestConfiguration()
-    //..features = [Glob(r"test_driver/features/**.feature")]
-    ..features = [Glob(r"test_driver/features/activities_filters.feature")]
+    ..features = [Glob(r"test_driver/features/**.feature")]
     ..reporters = [
       ProgressReporter(),
       TestRunSummaryReporter(),
