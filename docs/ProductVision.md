@@ -10,7 +10,7 @@ Having in mind that teachers may not use moodle's activities scheduling feature,
 
  - Visualize a calendar with the deadlines of the activities;
  - Filter which events are shown to the user;
- - Export the schedule to multiple calendar apps through an ICS file.
+ - Export the schedule to multiple calendar apps.
 
 ## Assumptions and dependencies
 
