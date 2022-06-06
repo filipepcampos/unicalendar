@@ -8,7 +8,9 @@ void main() {
   enableFlutterDriverExtension();
   
   // Setup default state for tests
-  SharedPreferences.setMockInitialValues({});
+  SharedPreferences.setMockInitialValues({
+    'favorite_cards': []
+  });
 
   // Call the `main()` function of your app or call `runApp` with any widget you
   // are interested in testing.
