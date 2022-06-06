@@ -32,8 +32,20 @@ class ActivityCard extends GenericCard {
   Widget buildCardContent(BuildContext context) {
     return StoreConnector<AppState, Tuple2<List<Activity>, RequestStatus>>(
       converter: (store) {
-        return Tuple2(store.state.content['activities'],
-                      store.state.content['activitiesStatus']);
+        final Map<String, bool> filteredActivities = store.state.content['filteredActivities'];
+        final List<Activity> activities = List.from(store.state.content['activities']);
+        
+        final Map<String, String> ucAbbreviationToName = Map.fromIterable(
+          store.state.content['currUcs'],
+           key: (uc) => uc.abbreviation,
+           value: (uc) => uc.name);
+
+        activities.removeWhere((item) => 
+            !filteredActivities.containsKey(ucAbbreviationToName[item.getCourseUnit()]) ||
+            filteredActivities[ucAbbreviationToName[item.getCourseUnit()]] == false
+          );
+        
+        return Tuple2(activities, store.state.content['activitiesStatus']);
       },
       builder: (context, activitiesInfo) => RequestDependentWidgetBuilder(
         context: context,
