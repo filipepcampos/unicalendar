@@ -7,5 +7,10 @@ Feature: Interact with the Activities calendar widget on the homescreen.
         When I fill the "usernameinput" field with my usercode
         And  I fill the "passwordinput" field with my password
         And I tap the "entrar" button
-        And I tap the widget "ActivityCard"
-        Then I expect the page "Atividades" to be present
+        And I tap the "editar" button
+        And I tap the "adicionar widget" button
+        And I tap the "atividades" button
+        And I tap the "editar" button
+        And I wait until the widget of type "ActivityCard" is present
+        And I tap the "ActivityCard" widget
+        Then I expect the text "Atividades" to be present
