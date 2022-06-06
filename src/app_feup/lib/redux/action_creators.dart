@@ -442,6 +442,12 @@ ThunkAction<AppState> getUserActivities(Completer<Null> action, Tuple2<String, S
       final Map<String, bool> newFilteredActivities = {};
       final bool filteredActivitiesInitialized = filteredActivities.isNotEmpty;
 
+      final Set<String> ucAbbreviations = userUcs.map((uc) => uc.abbreviation).toSet();
+
+      final List<Activity> activities = await ((fetcher?.getActivities(store)) ?? (ActivitiesFetcherApi()).getActivities(store));
+
+      final List<Activity> userActivities = activities.where((activity) => ucAbbreviations.contains(activity.getCourseUnit())).toList();
+
       for(CourseUnit uc in userUcs){
         if(filteredActivities.containsKey(uc.name)){
           newFilteredActivities[uc.name] = filteredActivities[uc.name];
@@ -451,12 +457,6 @@ ThunkAction<AppState> getUserActivities(Completer<Null> action, Tuple2<String, S
       }
       store.dispatch(SetActivitiesFilter(newFilteredActivities));
       AppSharedPreferences.saveFilteredActivities(newFilteredActivities);
-
-      final Set<String> ucAbbreviations = userUcs.map((uc) => uc.abbreviation).toSet();
-
-      final List<Activity> activities = await ((fetcher?.getActivities(store)) ?? (ActivitiesFetcherApi()).getActivities(store));
-
-      final List<Activity> userActivities = activities.where((activity) => ucAbbreviations.contains(activity.getCourseUnit())).toList();
 
       // Updates local database according to the information fetched -- Lectures
       if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {

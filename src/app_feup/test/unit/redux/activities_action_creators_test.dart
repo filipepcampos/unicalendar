@@ -26,9 +26,10 @@ void main() {
       'session': Session(authenticated: true),
       'profile': profile,
       'currUcs': [
-        CourseUnit(abbreviation: 'C1'),
-        CourseUnit(abbreviation: 'C2')
-      ]
+        CourseUnit(name:'Course 1', abbreviation: 'C1'),
+        CourseUnit(name:'Course 2', abbreviation: 'C2')
+      ],
+      'filteredActivities': <String, bool>{}
     };
 
     final Activity activity1 = Activity('C1', 'D1',
@@ -55,10 +56,11 @@ void main() {
       await completer.future;
       final List<dynamic> actions =
           verify(mockStore.dispatch(captureAny)).captured;
-      expect(actions.length, 3);
+      expect(actions.length, 4);
       expect(actions[0].status, RequestStatus.busy);
-      expect(actions[1].activities, [activity1, activity2]);
-      expect(actions[2].status, RequestStatus.successful);
+      expect(actions[1].filteredActivities, {'Course 1': true, 'Course 2': true});
+      expect(actions[2].activities, [activity1, activity2]);
+      expect(actions[3].status, RequestStatus.successful);
     });
     test('When an error occurs while trying to obtain the activities', () async {
       final Completer<Null> completer = Completer();
