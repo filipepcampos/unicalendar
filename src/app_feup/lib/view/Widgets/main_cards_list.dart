@@ -105,6 +105,7 @@ class MainCardsList extends StatelessWidget {
           return Container(
               height: MediaQuery.of(context).size.height,
               child: ReorderableListView(
+                key: Key('favouriteCardsList'),
                 onReorder: (oldi, newi) =>
                     this.reorderCard(oldi, newi, favoriteWidgets, context),
                 header: this.createTopBar(context),

@@ -11,6 +11,7 @@ Feature: Interact with the Activities calendar widget on the homescreen.
         And I tap the "adicionar widget" button
         And I tap the "atividades" button
         And I tap the "editar" button
+        And I swipe down by 5000 pixels on the "favouriteCardsList"
         And I wait until the widget of type "ActivityCard" is present
         And I tap the "ActivityCard" widget
         Then I expect the text "Atividades" to be present
