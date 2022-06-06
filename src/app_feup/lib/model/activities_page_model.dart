@@ -3,6 +3,7 @@ import 'package:uni/model/app_state.dart';
 import 'package:uni/model/entities/activity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/view/Pages/activities_page_view.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 
@@ -55,12 +56,27 @@ class _ActivitiesPageState extends SecondaryPageViewState
 
   @override
   Widget getBody(BuildContext context) {
-    return StoreConnector<AppState, Tuple2<List<Activity>, RequestStatus>>(
-      converter: (store) => Tuple2(store.state.content['activities'], 
-          store.state.content['activitiesStatus']),
+    return StoreConnector<AppState, Tuple4<
+          List<Activity>, RequestStatus, Map<String, bool>, List<CourseUnit>
+        >>(
+      converter: (store) => Tuple4(
+          store.state.content['activities'], 
+          store.state.content['activitiesStatus'],
+          store.state.content['filteredActivities'],
+          store.state.content['currUcs']),
       builder: (context, activitiesData) {
-        List<Activity> activities = activitiesData.item1;
-        RequestStatus status = activitiesData.item2;
+        final List<Activity> activities = activitiesData.item1;
+        final RequestStatus status = activitiesData.item2;
+        final Map<String, bool> activitiesFilter = activitiesData.item3;
+        final Map<String, String> ucAbbreviationToName = Map.fromIterable(
+          activitiesData.item4,
+           key: (uc) => uc.abbreviation,
+           value: (uc) => uc.name);
+
+        activities.removeWhere((item) => 
+            !activitiesFilter.containsKey(ucAbbreviationToName[item.getCourseUnit()]) ||
+            activitiesFilter[ucAbbreviationToName[item.getCourseUnit()]] == false
+          );
         return ActivitiesPageView(
             tabController: tabController,
             scrollViewController: scrollViewController,

@@ -33,11 +33,9 @@ class _ActivityFilterFormState extends State<ActivityFilterForm> {
   }
 
   Widget getActivitiesCheckboxes(Map<String, bool> filteredActivities, BuildContext context) {
-    filteredActivities.removeWhere((key, value) => !Activity.courseUnits.contains(key));
     return ListView(
         children: List.generate(filteredActivities.length, (i) {
       final String key = filteredActivities.keys.elementAt(i);
-      if (!Activity.courseUnits.contains(key)) return null;
       return CheckboxListTile(
           contentPadding: EdgeInsets.all(0),
           title: Text(

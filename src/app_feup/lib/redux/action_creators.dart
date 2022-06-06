@@ -438,7 +438,19 @@ ThunkAction<AppState> getUserActivities(Completer<Null> action, Tuple2<String, S
       final List<CourseUnit> userUcs = store.state.content['currUcs'];
 
       // Set available CourseUnits in Activity
-      Activity.courseUnits = userUcs.map((e) => e.name).toList();
+      final Map<String, bool> filteredActivities = store.state.content['filteredActivities'];
+      final Map<String, bool> newFilteredActivities = {};
+      final bool filteredActivitiesInitialized = filteredActivities.isNotEmpty;
+
+      for(CourseUnit uc in userUcs){
+        if(filteredActivities.containsKey(uc.name)){
+          newFilteredActivities[uc.name] = filteredActivities[uc.name];
+        } else {
+          newFilteredActivities[uc.name] = filteredActivities.isEmpty ? true : false;
+        }
+      }
+      store.dispatch(SetActivitiesFilter(newFilteredActivities));
+      AppSharedPreferences.saveFilteredActivities(newFilteredActivities);
 
       final Set<String> ucAbbreviations = userUcs.map((uc) => uc.abbreviation).toSet();
 
@@ -526,6 +538,7 @@ ThunkAction<AppState> setFilteredActivitites(Map<String, bool> newFilteredActivi
     filteredActivities = Map<String, bool>.from(newFilteredActivities);
     store.dispatch(SetActivitiesFilter(filteredActivities));
     AppSharedPreferences.saveFilteredActivities(filteredActivities);
+
     action.complete();
   };
 }

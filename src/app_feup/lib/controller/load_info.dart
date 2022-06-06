@@ -92,6 +92,7 @@ Future loadRemoteUserInfoToState(Store<AppState> store) async {
 void loadLocalUserInfoToState(store) async {
   store.dispatch(UpdateFavoriteCards(await AppSharedPreferences.getFavoriteCards()));
   store.dispatch(SetExamFilter(await AppSharedPreferences.getFilteredExams()));
+  store.dispatch(SetActivitiesFilter(await AppSharedPreferences.getFilteredActivities()));
   store.dispatch(SetUserFaculties(await AppSharedPreferences.getUserFaculties()));
   final Tuple2<String, String> userPersistentInfo = await AppSharedPreferences.getPersistentUserInfo();
   if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
@@ -106,7 +107,6 @@ void loadLocalUserInfoToState(store) async {
     store.dispatch(SetPrintBalanceStatusAction(RequestStatus.successful));
     store.dispatch(SetFeesStatusAction(RequestStatus.successful));
     store.dispatch(SetCoursesStatesStatusAction(RequestStatus.successful));
-    store.dispatch(SetActivitiesFilter(await AppSharedPreferences.getFilteredActivities()));
   }
 }
 

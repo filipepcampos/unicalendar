@@ -6,7 +6,6 @@ class Activity {
   String _description;
   DateTime _start;
   DateTime _end;
-  static List<String> courseUnits;
 
   Activity(String courseUnit, String description, DateTime start, DateTime end) {
     this._courseUnit = courseUnit;

@@ -31,6 +31,7 @@ class AppSharedPreferences {
   ];
   static final String filteredExamsTypes = 'filtered_exam_types';
   static final List<String> defaultFilteredExamTypes = Exam.getExamTypes().keys.toList();
+  static final String filteredActivitiesType = 'filtered_activity_course_units';
 
   /// Saves the user's student number, password and faculties.
   static Future savePersistentUserInfo(user, pass, faculties) async {
@@ -158,13 +159,13 @@ class AppSharedPreferences {
   // Returns the user's activity filter settings.
   static Future<Map<String, bool>> getFilteredActivities() async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String> storedFilteredActivityCourseUnits = prefs.getStringList('filtered_activity_course_units');
-    final List<String> defaultFilteredActivityCourseUnits = Activity.courseUnits;
+    final List<String> storedFilteredActivityCourseUnits = prefs.getStringList(filteredActivitiesType);
+    final List<String> defaultFilteredActivityCourseUnits = [];
 
     if (storedFilteredActivityCourseUnits == null) {
       return Map.fromIterable(defaultFilteredActivityCourseUnits, value: (courseUnit) => true);
     }
-    return Map.fromIterable(defaultFilteredActivityCourseUnits, value: (courseUnit) => storedFilteredActivityCourseUnits.contains(courseUnit));
+    return Map.fromIterable(storedFilteredActivityCourseUnits, value: (courseUnit) => true);
   }
 
   /// Encrypts [plainText] and returns its base64 representation.
