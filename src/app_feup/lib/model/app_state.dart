@@ -1,5 +1,6 @@
 // enum should be placed somewhere else?
 import 'package:uni/model/entities/bus_stop.dart';
+import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/model/entities/session.dart';
 import 'package:uni/model/entities/trip.dart';
 import 'package:uni/utils/constants.dart' as Constants;
@@ -17,11 +18,13 @@ class AppState {
 
   Map getInitialContent() {
     return {
+      'currUcs': <CourseUnit>[],
       'schedule': <Lecture>[],
       'exams': <Exam>[],
       'restaurants': <Restaurant>[],
       'activities': <Activity>[],
       'filteredExam': Map<String, bool>(),
+      'filteredActivities': Map<String, bool>(),
       'scheduleStatus': RequestStatus.none,
       'loginStatus': RequestStatus.none,
       'examsStatus': RequestStatus.none,

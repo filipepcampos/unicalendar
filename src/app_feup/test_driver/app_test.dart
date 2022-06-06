@@ -7,6 +7,7 @@ import 'steps/fill_password_input_step.dart';
 import 'steps/fill_usercode_input_step.dart';
 import 'steps/activity_subsection_is_open_step.dart';
 import 'authentication_data.dart';
+import 'steps/uncheck_all_activity_filters_step.dart';
 
 Future<void> main() {
   final config = FlutterTestConfiguration()
@@ -20,7 +21,8 @@ Future<void> main() {
       TapButtonNTimesStep(),
       FillPasswordStep(password),
       FillUsercodeStep(usercode),
-      ActivitySubsectionIsOpenStep()
+      ActivitySubsectionIsOpenStep(),
+      UncheckAllActivityFiltersStep()
     ]
     ..customStepParameterDefinitions = []
     ..restartAppBetweenScenarios = true

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:uni/view/Widgets/exam_filter_menu.dart';
+import 'package:uni/view/Widgets/activity_filter_menu.dart';
 
 class ActivitiesPageTitleFilter extends StatelessWidget {
   final String name;
@@ -17,10 +17,9 @@ class ActivitiesPageTitleFilter extends StatelessWidget {
         children: [
           Text(
             name,
-            style:
-                Theme.of(context).textTheme.headline6.apply(fontSizeDelta: 7),
+            style: Theme.of(context).textTheme.headline6.apply(fontSizeDelta: 7),
           ),
-          Material(child: ExamFilterMenu()), // TODO:
+          Material(child: ActivityFilterMenu()),
         ],
       ),
     );

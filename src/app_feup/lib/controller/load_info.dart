@@ -14,14 +14,11 @@ import 'package:uni/redux/refresh_items_action.dart';
 import 'local_storage/app_shared_preferences.dart';
 
 Future loadReloginInfo(Store<AppState> store) async {
-  final Tuple2<String, String> userPersistentCredentials =
-      await AppSharedPreferences.getPersistentUserInfo();
-  final List<String> userPersistentFacs =
-      await AppSharedPreferences.getUserFaculties();
+  final Tuple2<String, String> userPersistentCredentials = await AppSharedPreferences.getPersistentUserInfo();
+  final List<String> userPersistentFacs = await AppSharedPreferences.getUserFaculties();
   final String userName = userPersistentCredentials.item1;
   final String password = userPersistentCredentials.item2;
-  final List<String> faculties =
-      userPersistentFacs.isEmpty ? userPersistentFacs : ['feup'];
+  final List<String> faculties = userPersistentFacs.isEmpty ? userPersistentFacs : ['feup'];
 
   if (userName != '' && password != '') {
     final action = Completer();
@@ -43,8 +40,7 @@ Future loadUserInfoToState(store) async {
 Future loadRemoteUserInfoToState(Store<AppState> store) async {
   if (store.state.content['session'] == null) {
     return null;
-  } else if (!store.state.content['session'].authenticated &&
-      store.state.content['session'].persistentSession) {
+  } else if (!store.state.content['session'].authenticated && store.state.content['session'].persistentSession) {
     await loadReloginInfo(store);
   }
 
@@ -66,8 +62,7 @@ Future loadRemoteUserInfoToState(Store<AppState> store) async {
   store.dispatch(getUserBusTrips(trips));
   store.dispatch(getRestaurantsFromFetcher(restaurants));
 
-  final Tuple2<String, String> userPersistentInfo =
-      await AppSharedPreferences.getPersistentUserInfo();
+  final Tuple2<String, String> userPersistentInfo = await AppSharedPreferences.getPersistentUserInfo();
   userInfo.future.then((value) {
     store.dispatch(getUserExams(exams, ParserExams(), userPersistentInfo));
     store.dispatch(getUserSchedule(schedule, userPersistentInfo));
@@ -95,13 +90,11 @@ Future loadRemoteUserInfoToState(Store<AppState> store) async {
 }
 
 void loadLocalUserInfoToState(store) async {
-  store.dispatch(
-      UpdateFavoriteCards(await AppSharedPreferences.getFavoriteCards()));
+  store.dispatch(UpdateFavoriteCards(await AppSharedPreferences.getFavoriteCards()));
   store.dispatch(SetExamFilter(await AppSharedPreferences.getFilteredExams()));
-  store.dispatch(
-      SetUserFaculties(await AppSharedPreferences.getUserFaculties()));
-  final Tuple2<String, String> userPersistentInfo =
-      await AppSharedPreferences.getPersistentUserInfo();
+  store.dispatch(SetActivitiesFilter(await AppSharedPreferences.getFilteredActivities()));
+  store.dispatch(SetUserFaculties(await AppSharedPreferences.getUserFaculties()));
+  final Tuple2<String, String> userPersistentInfo = await AppSharedPreferences.getPersistentUserInfo();
   if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
     store.dispatch(updateStateBasedOnLocalProfile());
     store.dispatch(updateStateBasedOnLocalUserExams());
@@ -125,8 +118,7 @@ Future<void> handleRefresh(store) {
 
 Future<File> loadProfilePic(Store<AppState> store) {
   final String studentNo = store.state.content['session'].studentNumber;
-  String url =
-      'https://sigarra.up.pt/feup/pt/fotografias_service.foto?pct_cod=';
+  String url = 'https://sigarra.up.pt/feup/pt/fotografias_service.foto?pct_cod=';
   final Map<String, String> headers = Map<String, String>();
 
   if (studentNo != null) {

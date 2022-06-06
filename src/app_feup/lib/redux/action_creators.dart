@@ -17,8 +17,7 @@ import 'package:uni/controller/local_storage/app_refresh_times_database.dart';
 import 'package:uni/controller/local_storage/app_shared_preferences.dart';
 import 'package:uni/controller/local_storage/app_user_database.dart';
 import 'package:uni/controller/local_storage/app_restaurant_database.dart';
-import 'package:uni/controller/networking/network_router.dart'
-    show NetworkRouter;
+import 'package:uni/controller/networking/network_router.dart' show NetworkRouter;
 import 'package:uni/controller/parsers/parser_courses.dart';
 import 'package:uni/controller/parsers/parser_exams.dart';
 import 'package:uni/controller/parsers/parser_fees.dart';
@@ -48,8 +47,7 @@ ThunkAction<AppState> reLogin(username, password, faculty, {Completer action}) {
     try {
       loadLocalUserInfoToState(store);
       store.dispatch(SetLoginStatusAction(RequestStatus.busy));
-      final Session session =
-          await NetworkRouter.login(username, password, faculty, true);
+      final Session session = await NetworkRouter.login(username, password, faculty, true);
       store.dispatch(SaveLoginDataAction(session));
       if (session.authenticated) {
         await loadRemoteUserInfoToState(store);
@@ -60,8 +58,7 @@ ThunkAction<AppState> reLogin(username, password, faculty, {Completer action}) {
         action?.completeError(RequestStatus.failed);
       }
     } catch (e) {
-      final Session renewSession =
-          Session(studentNumber: username, authenticated: false);
+      final Session renewSession = Session(studentNumber: username, authenticated: false);
       renewSession.persistentSession = true;
       renewSession.faculty = faculty;
 
@@ -73,15 +70,13 @@ ThunkAction<AppState> reLogin(username, password, faculty, {Completer action}) {
   };
 }
 
-ThunkAction<AppState> login(username, password, faculties, persistentSession,
-    usernameController, passwordController) {
+ThunkAction<AppState> login(username, password, faculties, persistentSession, usernameController, passwordController) {
   return (Store<AppState> store) async {
     try {
       store.dispatch(SetLoginStatusAction(RequestStatus.busy));
 
       /// TODO: support for multiple faculties. Issue: #445
-      final Session session = await NetworkRouter.login(
-          username, password, faculties[0], persistentSession);
+      final Session session = await NetworkRouter.login(username, password, faculties[0], persistentSession);
       store.dispatch(SaveLoginDataAction(session));
       if (session.authenticated) {
         store.dispatch(SetLoginStatusAction(RequestStatus.successful));
@@ -90,8 +85,7 @@ ThunkAction<AppState> login(username, password, faculties, persistentSession,
         /// Faculties chosen in the dropdown
         store.dispatch(SetUserFaculties(faculties));
         if (persistentSession) {
-          AppSharedPreferences.savePersistentUserInfo(
-              username, password, faculties);
+          AppSharedPreferences.savePersistentUserInfo(username, password, faculties);
         }
         usernameController.clear();
         passwordController.clear();
@@ -112,19 +106,15 @@ ThunkAction<AppState> getUserInfo(Completer<Null> action) {
 
       store.dispatch(SaveProfileStatusAction(RequestStatus.busy));
 
-      final profile =
-          NetworkRouter.getProfile(store.state.content['session']).then((res) {
+      final profile = NetworkRouter.getProfile(store.state.content['session']).then((res) {
         userProfile = res;
         store.dispatch(SaveProfileAction(userProfile));
         store.dispatch(SaveProfileStatusAction(RequestStatus.successful));
       });
-      final ucs =
-          NetworkRouter.getCurrentCourseUnits(store.state.content['session'])
-              .then((res) => store.dispatch(SaveUcsAction(res)));
+      final ucs = NetworkRouter.getCurrentCourseUnits(store.state.content['session']).then((res) => store.dispatch(SaveUcsAction(res)));
       await Future.wait([profile, ucs]);
 
-      final Tuple2<String, String> userPersistentInfo =
-          await AppSharedPreferences.getPersistentUserInfo();
+      final Tuple2<String, String> userPersistentInfo = await AppSharedPreferences.getPersistentUserInfo();
       if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
         final profileDb = AppUserDataDatabase();
         profileDb.saveUserData(userProfile);
@@ -202,25 +192,20 @@ ThunkAction<AppState> updateStateBasedOnLocalUserBusStops() {
 ThunkAction<AppState> updateStateBasedOnLocalRefreshTimes() {
   return (Store<AppState> store) async {
     final AppRefreshTimesDatabase refreshTimesDb = AppRefreshTimesDatabase();
-    final Map<String, String> refreshTimes =
-        await refreshTimesDb.refreshTimes();
+    final Map<String, String> refreshTimes = await refreshTimesDb.refreshTimes();
 
     store.dispatch(SetPrintRefreshTimeAction(refreshTimes['print']));
     store.dispatch(SetFeesRefreshTimeAction(refreshTimes['fees']));
   };
 }
 
-Future<List<Exam>> extractExams(
-    Store<AppState> store, ParserExams parserExams) async {
+Future<List<Exam>> extractExams(Store<AppState> store, ParserExams parserExams) async {
   Set<Exam> courseExams = Set();
   for (Course course in store.state.content['profile'].courses) {
-    final Set<Exam> currentCourseExams = await parserExams.parseExams(
-        await NetworkRouter.getWithCookies(
-            NetworkRouter.getBaseUrlFromSession(
-                    store.state.content['session']) +
-                'exa_geral.mapa_de_exames?p_curso_id=${course.id}',
-            {},
-            store.state.content['session']));
+    final Set<Exam> currentCourseExams = await parserExams.parseExams(await NetworkRouter.getWithCookies(
+        NetworkRouter.getBaseUrlFromSession(store.state.content['session']) + 'exa_geral.mapa_de_exames?p_curso_id=${course.id}',
+        {},
+        store.state.content['session']));
     courseExams = Set.from(courseExams)..addAll(currentCourseExams);
   }
 
@@ -228,8 +213,7 @@ Future<List<Exam>> extractExams(
   final Set<Exam> exams = Set();
   for (Exam courseExam in courseExams) {
     for (CourseUnit uc in userUcs) {
-      if (!courseExam.examType.contains(
-              '''Exames ao abrigo de estatutos especiais - Port.Est.Especiais''') &&
+      if (!courseExam.examType.contains('''Exames ao abrigo de estatutos especiais - Port.Est.Especiais''') &&
           courseExam.subject == uc.abbreviation &&
           courseExam.hasEnded()) {
         exams.add(courseExam);
@@ -241,8 +225,7 @@ Future<List<Exam>> extractExams(
   return exams.toList();
 }
 
-ThunkAction<AppState> getUserExams(Completer<Null> action,
-    ParserExams parserExams, Tuple2<String, String> userPersistentInfo) {
+ThunkAction<AppState> getUserExams(Completer<Null> action, ParserExams parserExams, Tuple2<String, String> userPersistentInfo) {
   return (Store<AppState> store) async {
     try {
       //need to get student course here
@@ -268,15 +251,12 @@ ThunkAction<AppState> getUserExams(Completer<Null> action,
   };
 }
 
-ThunkAction<AppState> getUserSchedule(
-    Completer<Null> action, Tuple2<String, String> userPersistentInfo,
-    {ScheduleFetcher fetcher}) {
+ThunkAction<AppState> getUserSchedule(Completer<Null> action, Tuple2<String, String> userPersistentInfo, {ScheduleFetcher fetcher}) {
   return (Store<AppState> store) async {
     try {
       store.dispatch(SetScheduleStatusAction(RequestStatus.busy));
 
-      final List<Lecture> lectures =
-          await getLecturesFromFetcherOrElse(fetcher, store);
+      final List<Lecture> lectures = await getLecturesFromFetcherOrElse(fetcher, store);
 
       // Updates local database according to the information fetched -- Lectures
       if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
@@ -299,8 +279,7 @@ ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action) {
     try {
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.busy));
 
-      final List<Restaurant> restaurants =
-          await RestaurantFetcherHtml().getRestaurants(store);
+      final List<Restaurant> restaurants = await RestaurantFetcherHtml().getRestaurants(store);
       // Updates local database according to information fetched -- Restaurants
       final RestaurantDatabase db = RestaurantDatabase();
       db.saveRestaurants(restaurants);
@@ -315,14 +294,11 @@ ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action) {
   };
 }
 
-Future<List<Lecture>> getLecturesFromFetcherOrElse(
-        ScheduleFetcher fetcher, Store<AppState> store) =>
+Future<List<Lecture>> getLecturesFromFetcherOrElse(ScheduleFetcher fetcher, Store<AppState> store) =>
     (fetcher?.getLectures(store)) ?? getLectures(store);
 
 Future<List<Lecture>> getLectures(Store<AppState> store) {
-  return ScheduleFetcherApi()
-      .getLectures(store)
-      .catchError((e) => ScheduleFetcherHtml().getLectures(store));
+  return ScheduleFetcherApi().getLectures(store).catchError((e) => ScheduleFetcherHtml().getLectures(store));
 }
 
 ThunkAction<AppState> setInitialStoreState() {
@@ -333,22 +309,16 @@ ThunkAction<AppState> setInitialStoreState() {
 
 ThunkAction<AppState> getUserPrintBalance(Completer<Null> action) {
   return (Store<AppState> store) async {
-    final String url =
-        NetworkRouter.getBaseUrlFromSession(store.state.content['session']) +
-            'imp4_impressoes.atribs?';
+    final String url = NetworkRouter.getBaseUrlFromSession(store.state.content['session']) + 'imp4_impressoes.atribs?';
 
-    final Map<String, String> query = {
-      'p_codigo': store.state.content['session'].studentNumber
-    };
+    final Map<String, String> query = {'p_codigo': store.state.content['session'].studentNumber};
 
     try {
-      final response = await NetworkRouter.getWithCookies(
-          url, query, store.state.content['session']);
+      final response = await NetworkRouter.getWithCookies(url, query, store.state.content['session']);
       final String printBalance = await getPrintsBalance(response);
 
       final String currentTime = DateTime.now().toString();
-      final Tuple2<String, String> userPersistentInfo =
-          await AppSharedPreferences.getPersistentUserInfo();
+      final Tuple2<String, String> userPersistentInfo = await AppSharedPreferences.getPersistentUserInfo();
       if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
         await storeRefreshTime('print', currentTime);
 
@@ -372,24 +342,18 @@ ThunkAction<AppState> getUserFees(Completer<Null> action) {
   return (Store<AppState> store) async {
     store.dispatch(SetFeesStatusAction(RequestStatus.busy));
 
-    final String url =
-        NetworkRouter.getBaseUrlFromSession(store.state.content['session']) +
-            'gpag_ccorrente_geral.conta_corrente_view?';
+    final String url = NetworkRouter.getBaseUrlFromSession(store.state.content['session']) + 'gpag_ccorrente_geral.conta_corrente_view?';
 
-    final Map<String, String> query = {
-      'pct_cod': store.state.content['session'].studentNumber
-    };
+    final Map<String, String> query = {'pct_cod': store.state.content['session'].studentNumber};
 
     try {
-      final response = await NetworkRouter.getWithCookies(
-          url, query, store.state.content['session']);
+      final response = await NetworkRouter.getWithCookies(url, query, store.state.content['session']);
 
       final String feesBalance = await parseFeesBalance(response);
       final String feesLimit = await parseFeesNextLimit(response);
 
       final String currentTime = DateTime.now().toString();
-      final Tuple2<String, String> userPersistentInfo =
-          await AppSharedPreferences.getPersistentUserInfo();
+      final Tuple2<String, String> userPersistentInfo = await AppSharedPreferences.getPersistentUserInfo();
       if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
         await storeRefreshTime('fees', currentTime);
 
@@ -415,22 +379,16 @@ ThunkAction<AppState> getUserCoursesState(Completer<Null> action) {
   return (Store<AppState> store) async {
     store.dispatch(SetCoursesStatesStatusAction(RequestStatus.busy));
 
-    final String url =
-        NetworkRouter.getBaseUrlFromSession(store.state.content['session']) +
-            'fest_geral.cursos_list?';
+    final String url = NetworkRouter.getBaseUrlFromSession(store.state.content['session']) + 'fest_geral.cursos_list?';
 
-    final Map<String, String> query = {
-      'pv_num_unico': store.state.content['session'].studentNumber
-    };
+    final Map<String, String> query = {'pv_num_unico': store.state.content['session'].studentNumber};
 
     try {
-      final response = await NetworkRouter.getWithCookies(
-          url, query, store.state.content['session']);
+      final response = await NetworkRouter.getWithCookies(url, query, store.state.content['session']);
 
       final Map<String, String> coursesStates = await parseCourses(response);
 
-      final Tuple2<String, String> userPersistentInfo =
-          await AppSharedPreferences.getPersistentUserInfo();
+      final Tuple2<String, String> userPersistentInfo = await AppSharedPreferences.getPersistentUserInfo();
       if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
         final AppCoursesDatabase coursesDb = AppCoursesDatabase();
         coursesDb.saveCoursesStates(coursesStates);
@@ -450,13 +408,11 @@ ThunkAction<AppState> getUserBusTrips(Completer<Null> action) {
   return (Store<AppState> store) async {
     store.dispatch(SetBusTripsStatusAction(RequestStatus.busy));
     try {
-      final Map<String, BusStopData> stops =
-          store.state.content['configuredBusStops'];
+      final Map<String, BusStopData> stops = store.state.content['configuredBusStops'];
       final Map<String, List<Trip>> trips = Map<String, List<Trip>>();
 
       for (String stopCode in stops.keys) {
-        final List<Trip> stopTrips =
-            await NetworkRouter.getNextArrivalsStop(stopCode, stops[stopCode]);
+        final List<Trip> stopTrips = await NetworkRouter.getNextArrivalsStop(stopCode, stops[stopCode]);
         trips[stopCode] = stopTrips;
       }
 
@@ -474,23 +430,33 @@ ThunkAction<AppState> getUserBusTrips(Completer<Null> action) {
   };
 }
 
-ThunkAction<AppState> getUserActivities(Completer<Null> action, 
-  Tuple2<String, String> userPersistentInfo, {ActivitiesFetcher fetcher}) {
+ThunkAction<AppState> getUserActivities(Completer<Null> action, Tuple2<String, String> userPersistentInfo, {ActivitiesFetcher fetcher}) {
   return (Store<AppState> store) async {
     try {
       store.dispatch(SetActivitiesStatusAction(RequestStatus.busy));
 
       final List<CourseUnit> userUcs = store.state.content['currUcs'];
-      final Set<String> ucAbbreviations = userUcs.map(
-        (uc) => uc.abbreviation).toSet();
 
-      final List<Activity> activities = await (
-        (fetcher?.getActivities(store)) ??
-          (ActivitiesFetcherApi()).getActivities(store)
-        );
+      // Set available CourseUnits in Activity
+      final Map<String, bool> filteredActivities = store.state.content['filteredActivities'];
+      final Map<String, bool> newFilteredActivities = {};
+      final bool filteredActivitiesInitialized = filteredActivities.isNotEmpty;
 
-      final List<Activity> userActivities = activities.where((activity) =>
-         ucAbbreviations.contains(activity.getCourseUnit())).toList();
+      for(CourseUnit uc in userUcs){
+        if(filteredActivities.containsKey(uc.name)){
+          newFilteredActivities[uc.name] = filteredActivities[uc.name];
+        } else {
+          newFilteredActivities[uc.name] = filteredActivities.isEmpty ? true : false;
+        }
+      }
+      store.dispatch(SetActivitiesFilter(newFilteredActivities));
+      AppSharedPreferences.saveFilteredActivities(newFilteredActivities);
+
+      final Set<String> ucAbbreviations = userUcs.map((uc) => uc.abbreviation).toSet();
+
+      final List<Activity> activities = await ((fetcher?.getActivities(store)) ?? (ActivitiesFetcherApi()).getActivities(store));
+
+      final List<Activity> userActivities = activities.where((activity) => ucAbbreviations.contains(activity.getCourseUnit())).toList();
 
       // Updates local database according to the information fetched -- Lectures
       if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
@@ -509,12 +475,10 @@ ThunkAction<AppState> getUserActivities(Completer<Null> action,
   };
 }
 
-ThunkAction<AppState> addUserBusStop(
-    Completer<Null> action, String stopCode, BusStopData stopData) {
+ThunkAction<AppState> addUserBusStop(Completer<Null> action, String stopCode, BusStopData stopData) {
   return (Store<AppState> store) {
     store.dispatch(SetBusTripsStatusAction(RequestStatus.busy));
-    final Map<String, BusStopData> stops =
-        store.state.content['configuredBusStops'];
+    final Map<String, BusStopData> stops = store.state.content['configuredBusStops'];
 
     if (stops.containsKey(stopCode)) {
       (stops[stopCode].configuredBuses).clear();
@@ -530,12 +494,10 @@ ThunkAction<AppState> addUserBusStop(
   };
 }
 
-ThunkAction<AppState> removeUserBusStop(
-    Completer<Null> action, String stopCode) {
+ThunkAction<AppState> removeUserBusStop(Completer<Null> action, String stopCode) {
   return (Store<AppState> store) {
     store.dispatch(SetBusTripsStatusAction(RequestStatus.busy));
-    final Map<String, BusStopData> stops =
-        store.state.content['configuredBusStops'];
+    final Map<String, BusStopData> stops = store.state.content['configuredBusStops'];
     stops.remove(stopCode);
 
     store.dispatch(SetBusStopsAction(stops));
@@ -546,11 +508,9 @@ ThunkAction<AppState> removeUserBusStop(
   };
 }
 
-ThunkAction<AppState> toggleFavoriteUserBusStop(
-    Completer<Null> action, String stopCode, BusStopData stopData) {
+ThunkAction<AppState> toggleFavoriteUserBusStop(Completer<Null> action, String stopCode, BusStopData stopData) {
   return (Store<AppState> store) {
-    final Map<String, BusStopData> stops =
-        store.state.content['configuredBusStops'];
+    final Map<String, BusStopData> stops = store.state.content['configuredBusStops'];
 
     stops[stopCode].favorited = !stops[stopCode].favorited;
 
@@ -561,8 +521,7 @@ ThunkAction<AppState> toggleFavoriteUserBusStop(
   };
 }
 
-ThunkAction<AppState> setFilteredExams(
-    Map<String, bool> newFilteredExams, Completer<Null> action) {
+ThunkAction<AppState> setFilteredExams(Map<String, bool> newFilteredExams, Completer<Null> action) {
   return (Store<AppState> store) {
     Map<String, bool> filteredExams = store.state.content['filteredExams'];
     filteredExams = Map<String, bool>.from(newFilteredExams);
@@ -573,9 +532,19 @@ ThunkAction<AppState> setFilteredExams(
   };
 }
 
+ThunkAction<AppState> setFilteredActivitites(Map<String, bool> newFilteredActivities, Completer<Null> action) {
+  return (Store<AppState> store) {
+    Map<String, bool> filteredActivities = store.state.content['filteredActivities'];
+    filteredActivities = Map<String, bool>.from(newFilteredActivities);
+    store.dispatch(SetActivitiesFilter(filteredActivities));
+    AppSharedPreferences.saveFilteredActivities(filteredActivities);
+
+    action.complete();
+  };
+}
+
 Future storeRefreshTime(String db, String currentTime) async {
-  final AppRefreshTimesDatabase refreshTimesDatabase =
-      AppRefreshTimesDatabase();
+  final AppRefreshTimesDatabase refreshTimesDatabase = AppRefreshTimesDatabase();
   refreshTimesDatabase.saveRefreshTime(db, currentTime);
 }
 

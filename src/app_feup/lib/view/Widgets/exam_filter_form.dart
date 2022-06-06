@@ -20,28 +20,21 @@ class _ExamFilterFormState extends State<ExamFilterForm> {
     return AlertDialog(
       title: Text('Definições Filtro de Exames'),
       actions: [
-        TextButton(
-            child: Text('Cancelar'), onPressed: () => Navigator.pop(context)),
+        TextButton(child: Text('Cancelar'), onPressed: () => Navigator.pop(context)),
         ElevatedButton(
             child: Text('Confirmar'),
             onPressed: () {
-              StoreProvider.of<AppState>(context).dispatch(
-                  setFilteredExams(widget.filteredExams, Completer()));
+              StoreProvider.of<AppState>(context).dispatch(setFilteredExams(widget.filteredExams, Completer()));
 
               Navigator.pop(context);
             })
       ],
-      content: Container(
-          height: 300.0,
-          width: 200.0,
-          child: getExamCheckboxes(widget.filteredExams, context)),
+      content: Container(height: 300.0, width: 200.0, child: getExamCheckboxes(widget.filteredExams, context)),
     );
   }
 
-  Widget getExamCheckboxes(
-      Map<String, bool> filteredExams, BuildContext context) {
-    filteredExams
-        .removeWhere((key, value) => !Exam.getExamTypes().containsKey(key));
+  Widget getExamCheckboxes(Map<String, bool> filteredExams, BuildContext context) {
+    filteredExams.removeWhere((key, value) => !Exam.getExamTypes().containsKey(key));
     return ListView(
         children: List.generate(filteredExams.length, (i) {
       final String key = filteredExams.keys.elementAt(i);

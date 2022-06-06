@@ -60,13 +60,15 @@ AppState appReducers(AppState state, dynamic action) {
     return setLastUserInfoUpdateTime(state, action);
   } else if (action is SetExamFilter) {
     return setExamFilter(state, action);
+  } else if (action is SetActivitiesFilter) {
+    return setActivityFilter(state, action);
   } else if (action is SetUserFaculties) {
     return setUserFaculties(state, action);
-  } else if(action is SetRestaurantsAction){
+  } else if (action is SetRestaurantsAction) {
     return setRestaurantsAction(state, action);
   } else if (action is SetActivitiesAction) {
     return setActivitiesAction(state, action);
-  } else if (action is SetActivitiesStatusAction){
+  } else if (action is SetActivitiesStatusAction) {
     return setActivitesStatusAction(state, action);
   }
   return state;
@@ -125,8 +127,7 @@ AppState setPrintBalance(AppState state, SetPrintBalanceAction action) {
   return state.cloneAndUpdateValue('printBalance', action.printBalance);
 }
 
-AppState setPrintBalanceStatus(
-    AppState state, SetPrintBalanceStatusAction action) {
+AppState setPrintBalanceStatus(AppState state, SetPrintBalanceStatusAction action) {
   Logger().i('setting print balance status: ' + action.status.toString());
   return state.cloneAndUpdateValue('printBalanceStatus', action.status);
 }
@@ -176,8 +177,7 @@ AppState setCurrentTime(AppState state, SetCurrentTimeAction action) {
   return state.cloneAndUpdateValue('currentTime', action.currentTime);
 }
 
-AppState setInitialStoreState(
-    AppState state, SetInitialStoreStateAction action) {
+AppState setInitialStoreState(AppState state, SetInitialStoreStateAction action) {
   Logger().i('setting initial store state');
   return state.getInitialState();
 }
@@ -186,8 +186,7 @@ AppState updateFavoriteCards(AppState state, UpdateFavoriteCards action) {
   return state.cloneAndUpdateValue('favoriteCards', action.favoriteCards);
 }
 
-AppState setCoursesStateStatus(
-    AppState state, SetCoursesStatesStatusAction action) {
+AppState setCoursesStateStatus(AppState state, SetCoursesStatesStatusAction action) {
   Logger().i('setting courses state status: ' + action.status.toString());
   return state.cloneAndUpdateValue('coursesStatesStatus', action.status);
 }
@@ -207,15 +206,18 @@ AppState setHomePageEditingMode(AppState state, SetHomePageEditingMode action) {
   return state.cloneAndUpdateValue('homePageEditingMode', action.state);
 }
 
-AppState setLastUserInfoUpdateTime(
-    AppState state, SetLastUserInfoUpdateTime action) {
-  return state.cloneAndUpdateValue(
-      'lastUserInfoUpdateTime', action.currentTime);
+AppState setLastUserInfoUpdateTime(AppState state, SetLastUserInfoUpdateTime action) {
+  return state.cloneAndUpdateValue('lastUserInfoUpdateTime', action.currentTime);
 }
 
 AppState setExamFilter(AppState state, SetExamFilter action) {
   Logger().i('setting exam type filter to ' + action.filteredExams.toString());
   return state.cloneAndUpdateValue('filteredExams', action.filteredExams);
+}
+
+AppState setActivityFilter(AppState state, SetActivitiesFilter action) {
+  Logger().i('setting activities course unit filter to ' + action.filteredActivities.toString());
+  return state.cloneAndUpdateValue('filteredActivities', action.filteredActivities);
 }
 
 AppState setUserFaculties(AppState state, SetUserFaculties action) {
@@ -228,9 +230,7 @@ AppState setActivitiesAction(AppState state, SetActivitiesAction action) {
   return state.cloneAndUpdateValue('activities', action.activities);
 }
 
-
 AppState setActivitesStatusAction(AppState state, SetActivitiesStatusAction action) {
   Logger().i('setting activities state status: ' + action.status.toString());
   return state.cloneAndUpdateValue('activitiesStatus', action.status);
 }
-
