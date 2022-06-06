@@ -140,8 +140,11 @@ class AppSharedPreferences {
   static saveFilteredActivities(Map<String, bool> newFilteredActivityCourseUnits) async {
     final prefs = await SharedPreferences.getInstance();
 
-    final List<String> newCourseUnits =
-        newFilteredActivityCourseUnits.keys.where((courseUnit) => newFilteredActivityCourseUnits[courseUnit] == true).toList();
+    final List<String> newCourseUnits = [];
+    for (var uc in newFilteredActivityCourseUnits.keys) {
+      newCourseUnits.add(uc + ' ' + newFilteredActivityCourseUnits[uc].toString());
+    }
+
     prefs.setStringList('filtered_activity_course_units', newCourseUnits);
   }
 
@@ -160,12 +163,19 @@ class AppSharedPreferences {
   static Future<Map<String, bool>> getFilteredActivities() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String> storedFilteredActivityCourseUnits = prefs.getStringList(filteredActivitiesType);
-    final List<String> defaultFilteredActivityCourseUnits = [];
 
     if (storedFilteredActivityCourseUnits == null) {
-      return Map.fromIterable(defaultFilteredActivityCourseUnits, value: (courseUnit) => true);
+      return Map.fromIterable([], value: (courseUnit) => true);
     }
-    return Map.fromIterable(storedFilteredActivityCourseUnits, value: (courseUnit) => true);
+
+    final Map<String, bool> filteredActivityCourseUnits = {};
+    for(var uc in storedFilteredActivityCourseUnits){
+      final List<String> splitUc = uc.split(' ');
+      final bool value = splitUc[splitUc.length-1] == 'true';
+      final String ucName = splitUc.sublist(0, splitUc.length-1).join(' ');
+      filteredActivityCourseUnits[ucName] = value;
+    }  
+    return filteredActivityCourseUnits;
   }
 
   /// Encrypts [plainText] and returns its base64 representation.
