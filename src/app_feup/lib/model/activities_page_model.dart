@@ -65,7 +65,7 @@ class _ActivitiesPageState extends SecondaryPageViewState
           store.state.content['filteredActivities'],
           store.state.content['currUcs']),
       builder: (context, activitiesData) {
-        final List<Activity> activities = activitiesData.item1;
+        final List<Activity> activities = List.from(activitiesData.item1);
         final RequestStatus status = activitiesData.item2;
         final Map<String, bool> activitiesFilter = activitiesData.item3;
         final Map<String, String> ucAbbreviationToName = Map.fromIterable(
