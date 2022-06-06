@@ -48,6 +48,7 @@ class ActivityCard extends GenericCard {
         return Tuple2(activities, store.state.content['activitiesStatus']);
       },
       builder: (context, activitiesInfo) => RequestDependentWidgetBuilder(
+        key: Key('ActivityCard'),
         context: context,
         status: activitiesInfo.item2,
         contentGenerator: generateActivities,
