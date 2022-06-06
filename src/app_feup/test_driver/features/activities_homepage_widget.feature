@@ -11,4 +11,6 @@ Feature: Visualize the Activities calendar widget on the homescreen.
         And I tap the "adicionar widget" button
         And I tap the "atividades" button
         And I tap the "editar" button
+        And I pause for 2 seconds
+        And I swipe down by 5000 pixels on the "favouriteCardsList"
         Then I wait until the widget of type "ActivityCard" is present
