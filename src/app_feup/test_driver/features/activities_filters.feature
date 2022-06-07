@@ -19,6 +19,7 @@ Feature: Filter the ongoing and future activities on the calendar by their cours
         And I open the drawer
         And I tap the "key_Atividades" button
         And I tap the "ActivitiesFiltersPopup" button
+        And I wait until the "ActivityFilterCheckboxList" is present
         And I uncheck all the activity filters
         And I tap the "ActivitiesFilterConfirmButton" button
         Then I wait until the widget of type "PrimaryActivityRow" is absent within 2 seconds
