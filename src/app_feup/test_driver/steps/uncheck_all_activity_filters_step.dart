@@ -14,6 +14,7 @@ StepDefinitionGeneric UncheckAllActivityFiltersStep() {
       var exists = await isPresent(locator, driver);
       while(exists){
         await FlutterDriverUtils.tap(driver, locator);
+        await FlutterDriverUtils.waitForFlutter(driver, timeout: Duration(milliseconds: 50));
         await driver.scroll(list, 0, -80, Duration(milliseconds: 50));
         i += 1;
         locator = find.byValueKey('ActivityCheck$i');
