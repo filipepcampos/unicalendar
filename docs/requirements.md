@@ -99,7 +99,7 @@
  - [As an UP member, I want to see an Activities calendar page, so that I can check all my deadlines, filter them by date or course and export the activities calendar if I please.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/2)
  - [As an UP member, I want to be able to filter the calendar for ongoing and future activities by their course, so that I can easily keep track of the deadlines of a single or multiple courses.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/3)
  - [As an UP member, I want to click on the homescreen activities widget, so that I can go to the Activities page to check the complete list of activities, filter them by date or course and export the activities calendar if I please.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/4)
- - [As an UP member, I want to be able to export the activities calendar with the current filters applied to an external calendar application, so that I can easily synchronize with my everyday use calendar and manage my time more efficiently.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/5)
+ - [As an UP member, I want to be able to export an activity to an external calendar application, so that I can easily synchronize with my everyday use calendar and manage my time more efficiently.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/5)
  - [As an UP member, I want to be able to access the activities page through a button on the application sidebar, so that I can go to the Activities page to check the complete list of activities, filter them by date or course and export the activities calendar if I please.](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues/6)
 
 ### Domain model
