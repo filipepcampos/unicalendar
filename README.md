@@ -17,9 +17,9 @@ You can find here detailed about the product (or mini-app or module), from a hig
 
 ### Members
 
-- Adriano Soares (201904873)
-- Angela Cruz (201806781)
-- Filipe Campos (201905609)
-- Francisco Cerqueira (201905337)
-- Nuno Melo (202003324)
+- [Adriano Soares](https://github.com/adr1an0s0ar3s) (201904873)
+- [Angela Cruz](https://github.com/angelacruz99) (201806781)
+- [Filipe Campos](https://github.com/filipepcampos) (201905609)
+- [Francisco Cerqueira](https://github.com/xico2001pt) (201905337)
+- [Nuno Melo](https://github.com/up202003324) (202003324)
 ---
