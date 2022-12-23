@@ -6,7 +6,6 @@ You can find here detailed about the product (or mini-app or module), from a hig
 
 * Business modeling 
   * [Product Vision](docs/ProductVision.md)
-  * [Elevator Pitch]
 * [Requirements](docs/requirements.md)
   * [Use Case Model](docs/requirements.md#use-case-model)
   * [User stories](https://github.com/LEIC-ES-2021-22/3LEIC03T3/issues)
@@ -15,10 +14,6 @@ You can find here detailed about the product (or mini-app or module), from a hig
   * [Logical architecture](docs/ArchitectureAndDesign.md#logical-architecture)
   * [Physical architecture](docs/ArchitectureAndDesign.md#physical-architecture)
   * [Prototype](docs/ArchitectureAndDesign.md#vertical-prototype)
-* [Implementation]
-* [Test]
-* [Configuration and change management]
-* [Project management]
 
 ### Members
 
